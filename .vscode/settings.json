@@ -1,0 +1,13 @@
+{
+    "php.validate.executablePath": "C:\\Users\\Arwah\\.config\\herd\\bin\\php85\\php.exe",
+    "intelephense.diagnostics.undefinedVariables": false,
+    "intelephense.diagnostics.undefinedTypes": false,
+    "intelephense.diagnostics.undefinedFunctions": false,
+    "intelephense.diagnostics.undefinedConstants": false,
+    "intelephense.diagnostics.undefinedClassConstants": false,
+    "intelephense.diagnostics.undefinedMethods": false,
+    "intelephense.diagnostics.undefinedProperties": false,
+    "files.associations": {
+        "*.php": "php"
+    }
+}

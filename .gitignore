@@ -1,0 +1,9 @@
+# Database backups
+/database/backup/
+/database/backup/*
+
+# Local credentials
+mysql_config.php
+
+# Original photos
+/produk_preloved_original/

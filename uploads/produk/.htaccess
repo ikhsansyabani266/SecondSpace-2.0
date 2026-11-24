@@ -1,0 +1,6 @@
+# Disable script execution in images directory
+<FilesMatch "(?i)\.(php|php3|php4|php5|php7|php8|phtml|phar)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+Options -ExecCGI -Indexes
