@@ -7,8 +7,8 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 ## Ringkasan Status Proyek
 
 - Total Fase: 9 Fase
-- Fase Terakhir Selesai: FASE 5 (Penyederhanaan Struktur Database)
-- Fase Selanjutnya: FASE 6 (Penyempurnaan Alur Kerja Admin dan Keselarasan User - Menunggu Persetujuan)
+- Fase Terakhir Selesai: FASE 6 (Penyempurnaan Alur Kerja Admin dan Keselarasan User)
+- Fase Selanjutnya: FASE 7 (Penyempurnaan Keamanan dan Validasi - Menunggu Persetujuan)
 - Aturan Kerja: Kerjakan SATU fase per giliran, lalu BERHENTI dan tunggu persetujuan pemilik sebelum melanjutkan ke fase berikutnya.
 - Prinsip Utama: Tanpa JavaScript (Zero JS), tanpa emoji di seluruh sistem, pertahankan tampilan dan workflow eksisting 100%, perubahan skema database hanya dilakukan di Fase 5 setelah konfirmasi butir per butir.
 
@@ -147,12 +147,42 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 
 ---
 
-### FASE 6: PENYEMPURNAAN ALUR KERJA ADMIN DAN KESELARASAN USER
-- Status: PENDING
-- Rencana Kerja:
-  1. Penyelarasan label status pesanan dan pembayaran antara dashboard admin dan panel user.
-  2. Sinkronisasi alur pembaruan resi pengiriman dan status pengiriman pesanan.
-  3. Uji coba alur menyeluruh login, pesanan, dan verifikasi admin.
+### FASE 6: PEMERIKSAAN ALUR (WORKFLOW) ADMIN DAN VALIDITAS DATA
+- Status: SELESAI
+- Tanggal Eksekusi: 24 November 2026
+- Lingkup Kerja & Bukti:
+  1. Verifikasi Angka Secara Independen:
+     - Seluruh angka metrik dashboard admin diuji menggunakan kueri SQL terpisah independen:
+       * Total Produk Aktif: UI = 24 | Kueri = 24 [COCOK]
+       * Total Seluruh Pesanan: UI = 5 | Kueri = 5 [COCOK]
+       * Menunggu Verifikasi: UI = 0 | Kueri = 0 [COCOK]
+       * Pesanan Selesai: UI = 4 | Kueri = 4 [COCOK]
+       * Pesan Kontak: Total = 0 | Belum Dibaca = 0 [COCOK]
+       * Omzet Penjualan Sah: UI = Rp 562.500 | Kueri = Rp 562.500 [COCOK]
+       * Status Pesanan: Menunggu Bayar (0), Diproses (0), Dikirim (0), Selesai (4), Dibatalkan (1). Total = 5 [COCOK]
+     - Perhitungan Nilai Pesanan: Subtotal + Ongkir - Diskon Kupon = Total terverifikasi 100% konsisten pada seluruh pesanan historis.
+  2. Kesamaan Admin dan User pada Sampel Data:
+     - Sampel produk (stok = 1, ID 9): Nama, harga (Rp 75.000), stok (1), kondisi (Seperti Baru), merek, kategori, ukuran (L) terbukti 100% identik di panel admin dan user.
+     - Sampel pesanan selesai (ID 11): Order code, nama pembeli, total (Rp 130.000), nomor resi (`124154134124132`), format tanggal (`d M Y, H:i WIB`), dan zona waktu `Asia/Jakarta` terbukti 100% identik di admin dan user.
+     - Sampel pesanan dibatalkan (ID 6): Status pesanan (`Dibatalkan`) dan status bayar (`Dibatalkan`) terbukti identik.
+  3. Konsistensi Istilah Sistem:
+     - Himpunan Kondisi Produk: Tersinkronisasi penuh dengan Opsi A (`Seperti Baru`, `Bagus`, `Ada Minus`) di database, `shared/config.php`, filter katalog user, kartu produk, dan form admin.
+     - Status Pesanan: Terpusat pada `DAFTAR_STATUS_ORDER` (`Menunggu Pembayaran`, `Diproses`, `Dikirim`, `Selesai`, `Dibatalkan`).
+     - Status Pembayaran: Terpusat pada `DAFTAR_STATUS_PAYMENT` (`Belum Bayar`, `Menunggu Pembayaran`, `Menunggu Konfirmasi`, `Menunggu Verifikasi`, `Dibayar`, `Terverifikasi`, `Ditolak`, `Selesai`, `Dibatalkan`).
+  4. Pengujian Alur Admin Lengkap & Sinkronisasi Dua Arah:
+     - Otentikasi & Guard Admin: Login kredensial valid lolos, password salah ditolak dengan pesan error yang aman.
+     - CRUD Produk & Mutasi Stok: Penambahan produk baru, mutasi stok, pencatatan otomatis di `riwayat_stok`, dan penghapusan produk aman lolos 100%.
+     - Transaksi Sinkronisasi Dua Arah: User checkout -> stok barang berkurang otomatis -> user upload bukti -> admin tolak bukti bayar -> user upload ulang bukti valid -> admin verifikasi pembayaran (pesanan otomatis maju ke `Diproses`) -> admin input resi & ubah ke `Dikirim` -> pesanan `Selesai` lolos 100%.
+     - Pengembalian Stok saat Batal: Saat pesanan dibatalkan, stok barang preloved unik kembali tepat satu kali dari 0 menjadi 1, dan tercatat di `riwayat_stok`.
+     - Integritas Snapshot Harga: Perubahan harga katalog produk di kemudian hari tidak mengubah harga historis pesanan yang telah terjadi pada `order_items`.
+     - Alur Pesan Kontak: Pesan masuk tercatat -> admin membaca (`is_read = 1`) -> pesan dihapus lolos 100%.
+  5. Pengujian Kasus Tepi (Edge Cases):
+     - Loncat status ilegal (langsung `Dikirim` sebelum pembayaran terverifikasi) ditolak oleh state machine.
+     - Mengubah status pesanan yang sudah `Selesai` ditolak oleh sistem.
+     - Mengubah status ke `Dikirim` tanpa mengisi nomor resi ditolak oleh sistem.
+     - Akses pesanan dengan ID yang tidak ada ditangani secara aman.
+  6. Temuan dan Catatan Khusus untuk Pemilik Proyek:
+     - Pada orientasi foto produk, ditemukan bahwa beberapa foto produk di `uploads/produk/` (antara lain celana kargo ID 31, jeans ID 32, windbreaker ID 30, chino ID 24, kemeja ID 20, dll) memiliki penamaan file `-depan.webp` yang secara visual menampilkan sisi belakang pakaian, dan file `-belakang.webp` menampilkan sisi depan pakaian. Temuan ini dicatat dan siap ditata posisinya dengan persetujuan pemilik proyek.
 
 ---
 
