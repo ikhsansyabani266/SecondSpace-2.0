@@ -34,7 +34,7 @@ Berikut adalah pemetaan setiap file terhadap tabel database yang diakses atau di
 +------------------+----------------------------------------------------------------------------------------+
 | products         | user/index.php, user/produk.php, user/detail.php, user/keranjang.php,                   |
 |                  | admin/produk.php, admin/produk_form.php, admin/stok.php, admin/konfirmasi_hapus.php    |
-| categories       | user/produk.php, admin/kategori.php, admin/produk_form.php, admin/sidebar.php          |
+| product_images   | user/detail.php, admin/produk.php, admin/produk_form.php                               |
 | orders           | user/checkout.php, user/pembayaran.php, user/konfirmasi.php, user/pesanan.php,         |
 |                  | user/detail_pesanan.php, admin/index.php, admin/pesanan.php, admin/detail_pesanan.php  |
 | order_items      | user/pembayaran.php, user/konfirmasi.php, user/pesanan.php, user/detail_pesanan.php,   |

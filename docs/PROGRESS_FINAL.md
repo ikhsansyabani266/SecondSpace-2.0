@@ -7,8 +7,8 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 ## Ringkasan Status Proyek
 
 - Total Fase: 9 Fase
-- Fase Terakhir Selesai: FASE 4 (Penghapusan Emoji dan Pembersihan Data Demo)
-- Fase Selanjutnya: FASE 5 (Penyederhanaan Struktur Database - Menunggu Persetujuan Butir per Butir)
+- Fase Terakhir Selesai: FASE 5 (Penyederhanaan Struktur Database)
+- Fase Selanjutnya: FASE 6 (Penyempurnaan Alur Kerja Admin dan Keselarasan User - Menunggu Persetujuan)
 - Aturan Kerja: Kerjakan SATU fase per giliran, lalu BERHENTI dan tunggu persetujuan pemilik sebelum melanjutkan ke fase berikutnya.
 - Prinsip Utama: Tanpa JavaScript (Zero JS), tanpa emoji di seluruh sistem, pertahankan tampilan dan workflow eksisting 100%, perubahan skema database hanya dilakukan di Fase 5 setelah konfirmasi butir per butir.
 
@@ -98,7 +98,7 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 ---
 
 ### FASE 5: PENYEDERHANAAN STRUKTUR DATABASE
-- Status: TAHAP C SELESAI (Menunggu Persetujuan Masuk ke Tahap D Migration)
+- Status: SELESAI
 - Tanggal Eksekusi: 24 November 2026
 - Keputusan Pemilik Proyek (Tahap B):
   1. Item 1 sampai 8 pada Tabel Keputusan: Disetujui 100% tanpa pengecualian.
@@ -116,22 +116,34 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
      - `admin/pesanan.php`: Query filter dan render baris berhenti membaca `order_number`, `total_price`, dan `status`.
      - `user/detail_pesanan.php` & `user/pesanan.php`: Tampilan dan query pesanan murni menggunakan `order_code` dan `order_status`.
      - `admin/index.php`, `admin/produk.php`, `admin/riwayat.php`, `shared/fungsi.php`: Dihapus klausul filter sementara `is_demo = 0`.
-  5. Pengujian & Verifikasi:
-     - Seluruh alur (filter katalog, detail produk, KPI dashboard, pesanan aktif, mutasi stok) telah diuji dan berfungsi normal 100%.
-     - Kompilasi `php -l` pada seluruh berkas PHP: 0 kesalahan sintaks.
-  6. Pelaksanaan Tahap D (Uji Coba Salinan Sementara & Dry-Run):
-     - Berkas migrasi DDL terstruktur dibuat di `database/migrations/012_fase5_penyederhanaan_struktur_final.sql`.
-     - Database salinan sementara `secondspace_salinan_uji` dibuat dan diisi data eksisting dari `toko_preloved_final.sql`.
-     - Skrip migrasi dijalankan pada database salinan dan berhasil 100% tanpa kendala:
+     - `admin/produk_form.php` & `user/konfirmasi.php`: Query INSERT/UPDATE murni menggunakan kolom baku (`condition`, `order_code`, `total`, `order_status`, `payment_status`).
+     - Hasil pencarian di seluruh project: 0 referensi tersisa ke kolom yang dihapus/digabung.
+- Pelaksanaan Tahap D (Migrasi Database Utama Sesuai Syarat & Urutan Baru):
+  1. Uji Coba Salinan Sementara:
+     - Telah diuji pada salinan database `secondspace_salinan_uji`: migrasi 012 sukses 100%, seluruh alur (tambah produk, filter kondisi Opsi A, checkout, upload bukti, ubah status bayar dan pesanan, dashboard KPI, detail pesanan, kontak masuk) LULUS 100%. Salinan uji dihapus bersih.
+  2. Backup Basis Data Utama Tepat Sebelum Migrasi:
+     - Dibuat di `database/backup/backup_fase5_tepat_sebelum_migrasi_utama.sql` (49.61 KB).
+     - Telah diverifikasi dengan mengimpor ke database kosong sementara `test_backup_verify` tanpa error (155 kueri berhasil), lalu database sementara dihapus.
+  3. Eksekusi Migrasi 012 pada Database Utama `secondspace_preloved`:
+     - Dijalankan 10 langkah DDL tanpa error:
        * Kolom `order_number`, `total_price`, dan `status` terhapus dari `orders`.
        * Kolom `condition_text` dan `is_demo` terhapus dari `products`.
        * Kolom `condition` bertipe ENUM baku (`'Seperti Baru'`, `'Bagus'`, `'Ada Minus'`).
-       * Kolom `order_status` dan `payment_status` bertipe ENUM baku.
+       * Kolom `order_status` dan `payment_status` bertipe ENUM baku terstandarisasi.
        * Kolom `is_read` (TINYINT 1) ditambahkan ke tabel `contacts`.
-       * Foreign key `fk_orders_user` dan `fk_order_items_order` terbentuk sempurna.
-       * Seluruh 24 produk dan 5 pesanan aktif terjaga utuh tanpa anomali.
-     - Database salinan sementara telah dibersihkan kembali setelah verifikasi.
-     - Basis data utama `secondspace_preloved` belum disentuh dan siap dieksekusi setelah persetujuan akhir.
+       * Foreign key formal `fk_orders_user` dan `fk_order_items_order` aktif sempurna.
+  4. Audit Konsistensi Pasca-Migrasi:
+     - `database/tools/cek_konsistensi.php` dijalankan: 0 anomali sistem (Target 0 anomali tercapai).
+  5. Pengujian Alur Utama di Database Utama & Verifikasi Dashboard:
+     - Angka dashboard KPI (Produk: 24, Pesanan: 5, Menunggu Verif: 0, Selesai: 4) terbukti identik 100% dengan kueri independen.
+     - Alur tambah produk, checkout, bukti bayar, dan transisi status diuji dengan data minimal dan langsung dibersihkan kembali ke kondisi semula.
+  6. Ekspor Basis Data Bersih:
+     - `database/toko_preloved_final.sql` diekspor ulang (49.15 KB).
+     - Telah diverifikasi diimpor ke database kosong sementara `test_reexport_verify` tanpa error (165 kueri berhasil), lalu database sementara dihapus.
+  7. Pemutakhiran Dokumentasi:
+     - `docs/ALUR_SISTEM.md` dibuat (memuat ERD Mermaid 9 tabel, aturan kondisi Opsi A, dan state machine status).
+     - `docs/PANDUAN_KODE.md` dimutakhirkan pada peta tabel database.
+     - `docs/PROGRESS_FINAL.md` dimutakhirkan.
 
 ---
 
