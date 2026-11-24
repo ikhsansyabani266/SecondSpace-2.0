@@ -154,15 +154,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 try {
                     if ($isEdit) {
                         // [QUERY: Update Produk Eksisting]
-                        $upStmt = $conn->prepare("UPDATE products SET sku = ?, name = ?, category = ?, brand = ?, size = ?, `condition` = ?, condition_text = ?, material = ?, price = ?, stock = ?, description = ?, image = ? WHERE id = ?");
-                        $upStmt->bind_param("ssssssssdissi", $sku, $name, $category, $brand, $size, $condition, $condition, $material, $price, $stock, $description, $mainImageFile, $id);
+                        $upStmt = $conn->prepare("UPDATE products SET sku = ?, name = ?, category = ?, brand = ?, size = ?, `condition` = ?, material = ?, price = ?, stock = ?, description = ?, image = ? WHERE id = ?");
+                        $upStmt->bind_param("sssssssdissi", $sku, $name, $category, $brand, $size, $condition, $material, $price, $stock, $description, $mainImageFile, $id);
                         $upStmt->execute();
                         $upStmt->close();
                         $productId = $id;
                     } else {
                         // [QUERY: Insert Produk Baru]
-                        $inStmt = $conn->prepare("INSERT INTO products (sku, name, category, brand, size, `condition`, condition_text, material, price, stock, description, image, is_demo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)");
-                        $inStmt->bind_param("ssssssssdiss", $sku, $name, $category, $brand, $size, $condition, $condition, $material, $price, $stock, $description, $mainImageFile);
+                        $inStmt = $conn->prepare("INSERT INTO products (sku, name, category, brand, size, `condition`, material, price, stock, description, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $inStmt->bind_param("sssssssdiss", $sku, $name, $category, $brand, $size, $condition, $material, $price, $stock, $description, $mainImageFile);
                         $inStmt->execute();
                         $productId = $conn->insert_id;
                         $inStmt->close();

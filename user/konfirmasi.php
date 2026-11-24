@@ -141,10 +141,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $initialStatus = "Menunggu Pembayaran";
         $orderNotes = ($discountAmount > 0) ? "Kupon: {$discountCode} (-" . formatRupiah($discountAmount) . ")" : "";
 
-        // 4. Simpan ke Tabel orders (Memenuhi order_code, order_number, total, total_price, notes)
-        $stmtOrder = $conn->prepare("INSERT INTO orders (order_code, order_number, user_id, address_id, subtotal, shipping, total, total_price, payment_method, payment_status, order_status, status, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        // 4. Simpan ke Tabel orders (Murni memakai order_code, total, order_status, payment_status)
+        $stmtOrder = $conn->prepare("INSERT INTO orders (order_code, user_id, address_id, subtotal, shipping, total, payment_method, payment_status, order_status, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         if (!$stmtOrder) throw new Exception($conn->error);
-        $stmtOrder->bind_param("ssiidddssssss", $orderCode, $orderCode, $userId, $addressId, $subtotal, $shipping, $total, $total, $paymentMethod, $initialStatus, $initialStatus, $initialStatus, $orderNotes);
+        $stmtOrder->bind_param("siidddssss", $orderCode, $userId, $addressId, $subtotal, $shipping, $total, $paymentMethod, $initialStatus, $initialStatus, $orderNotes);
         $stmtOrder->execute();
         $orderId = (int)$conn->insert_id;
         $stmtOrder->close();

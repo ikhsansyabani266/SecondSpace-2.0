@@ -24,7 +24,7 @@ ALTER TABLE `orders`
     DROP COLUMN `total_price`,
     DROP COLUMN `status`,
     MODIFY `order_status` ENUM('Menunggu Pembayaran', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalkan') NOT NULL DEFAULT 'Menunggu Pembayaran',
-    MODIFY `payment_status` ENUM('Menunggu Pembayaran', 'Dibayar', 'Selesai', 'Dibatalkan') NOT NULL DEFAULT 'Menunggu Pembayaran';
+    MODIFY `payment_status` ENUM('Belum Bayar', 'Menunggu Pembayaran', 'Menunggu Konfirmasi', 'Menunggu Verifikasi', 'Dibayar', 'Terverifikasi', 'Ditolak', 'Selesai', 'Dibatalkan') NOT NULL DEFAULT 'Menunggu Pembayaran';
 
 -- 3. Penambahan Kolom Status Baca pada Tabel contacts
 ALTER TABLE `contacts`

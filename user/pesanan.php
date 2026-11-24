@@ -51,11 +51,11 @@ if ($isLoggedIn && $userId > 0) {
 
     // Filter status tab jika dipilih
     if ($statusFilter === "aktif") {
-        $query .= " AND (o.order_status IN ('Diproses', 'Dikirim') OR o.status IN ('Diproses', 'Dikirim'))";
+        $query .= " AND o.order_status IN ('Diproses', 'Dikirim')";
     } elseif ($statusFilter === "menunggu") {
-        $query .= " AND (o.order_status = 'Menunggu Pembayaran' OR o.status = 'Menunggu Pembayaran')";
+        $query .= " AND o.order_status = 'Menunggu Pembayaran'";
     } elseif ($statusFilter === "selesai") {
-        $query .= " AND (o.order_status = 'Selesai' OR o.status = 'Selesai')";
+        $query .= " AND o.order_status = 'Selesai'";
     }
 
     $query .= " ORDER BY o.id DESC";

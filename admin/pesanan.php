@@ -22,11 +22,11 @@ $offset = ($page - 1) * $perPage;
 
 /* [QUERY]: Quick KPI Counters untuk Situational Awareness (6 Kategori Monitoring Pesanan) */
 $countAllOrders  = (int)$conn->query("SELECT COUNT(*) as c FROM orders")->fetch_assoc()['c'];
-$countMenunggu   = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Menunggu Pembayaran' OR status = 'Menunggu Pembayaran'")->fetch_assoc()['c'];
-$countDiproses   = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Diproses' OR status = 'Diproses'")->fetch_assoc()['c'];
-$countDikirim    = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Dikirim' OR status = 'Dikirim'")->fetch_assoc()['c'];
-$countSelesai    = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Selesai' OR status = 'Selesai'")->fetch_assoc()['c'];
-$countDibatalkan = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Dibatalkan' OR status = 'Dibatalkan'")->fetch_assoc()['c'];
+$countMenunggu   = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Menunggu Pembayaran'")->fetch_assoc()['c'];
+$countDiproses   = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Diproses'")->fetch_assoc()['c'];
+$countDikirim    = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Dikirim'")->fetch_assoc()['c'];
+$countSelesai    = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Selesai'")->fetch_assoc()['c'];
+$countDibatalkan = (int)$conn->query("SELECT COUNT(*) as c FROM orders WHERE order_status = 'Dibatalkan'")->fetch_assoc()['c'];
 
 /* [QUERY]: Bangun Klausa WHERE Dinamis */
 $whereClauses = ["1=1"];

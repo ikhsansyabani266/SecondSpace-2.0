@@ -78,10 +78,11 @@ $q11 = $conn->query("SELECT username, COUNT(*) as c FROM users GROUP BY username
 $cnt11 = $q11 ? $q11->num_rows : 0;
 $anomalies['username_duplikat'] = $cnt11;
 
-// 12. Produk bertanda demo (harus 0)
-$q12 = $conn->query("SELECT id FROM products WHERE is_demo = 1");
+// 12. Kondisi produk tidak baku (harus sesuai DAFTAR_KONDISI_PRODUK)
+$kondisiList = "'" . implode("','", DAFTAR_KONDISI_PRODUK) . "'";
+$q12 = $conn->query("SELECT id FROM products WHERE `condition` NOT IN ($kondisiList)");
 $cnt12 = $q12 ? $q12->num_rows : 0;
-$anomalies['produk_berstatus_demo'] = $cnt12;
+$anomalies['kondisi_produk_tidak_baku'] = $cnt12;
 
 $totalAnomalies = 0;
 foreach ($anomalies as $kategori => $jumlah) {

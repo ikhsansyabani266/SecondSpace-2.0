@@ -372,9 +372,9 @@ function ubah_status_pesanan($conn, $orderId, $statusBaru, $catatan = '', $admin
     // Update tabel orders
     $upResi = $nomorResi ?: $order['tracking_number'];
     $upKurir = $kurir ?: $order['shipping_courier'];
-    $upStmt = $conn->prepare("UPDATE orders SET order_status = ?, status = ?, tracking_number = ?, shipping_courier = ? WHERE id = ?");
+    $upStmt = $conn->prepare("UPDATE orders SET order_status = ?, tracking_number = ?, shipping_courier = ? WHERE id = ?");
     if (!$upStmt) return ['success' => false, 'error' => $conn->error];
-    $upStmt->bind_param("ssssi", $statusBaru, $statusBaru, $upResi, $upKurir, $orderId);
+    $upStmt->bind_param("sssi", $statusBaru, $upResi, $upKurir, $orderId);
     $upStmt->execute();
     $upStmt->close();
 
@@ -432,8 +432,8 @@ function ubah_status_pembayaran($conn, $orderId, $statusBaru, $catatan = '', $ad
 
     // Update status pembayaran
     if ($syncOrderStatus) {
-        $upStmt = $conn->prepare("UPDATE orders SET payment_status = ?, order_status = ?, status = ? WHERE id = ?");
-        $upStmt->bind_param("sssi", $statusBaru, $syncOrderStatus, $syncOrderStatus, $orderId);
+        $upStmt = $conn->prepare("UPDATE orders SET payment_status = ?, order_status = ? WHERE id = ?");
+        $upStmt->bind_param("ssi", $statusBaru, $syncOrderStatus, $orderId);
     } else {
         $upStmt = $conn->prepare("UPDATE orders SET payment_status = ? WHERE id = ?");
         $upStmt->bind_param("si", $statusBaru, $orderId);
