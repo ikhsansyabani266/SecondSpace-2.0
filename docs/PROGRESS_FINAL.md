@@ -7,8 +7,8 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 ## Ringkasan Status Proyek
 
 - Total Fase: 9 Fase
-- Fase Terakhir Selesai: FASE 7 (Perapian Kode, Keamanan Final, dan Komentar Bertanda)
-- Fase Selanjutnya: FASE 8 (Dokumentasi dan Paket Pengumpulan - Menunggu Persetujuan)
+- Fase Terakhir Selesai: FASE 8 (Dokumentasi dan Paket Pengumpulan)
+- Fase Selanjutnya: FASE 9 (Pengujian Akhir - Menunggu Persetujuan)
 - Aturan Kerja: Kerjakan SATU fase per giliran, lalu BERHENTI dan tunggu persetujuan pemilik sebelum melanjutkan ke fase berikutnya.
 - Prinsip Utama: Tanpa JavaScript (Zero JS), tanpa emoji di seluruh sistem, pertahankan tampilan dan workflow eksisting 100%, perubahan skema database hanya dilakukan di Fase 5 setelah konfirmasi butir per butir.
 
@@ -217,19 +217,39 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 
 ---
 
-### FASE 8: DOKUMENTASI MENYELURUH
-- Status: PENDING
-- Rencana Kerja:
-  1. Penyusunan dokumentasi arsitektur sistem (`docs/ARSITEKTUR.md`).
-  2. Penyusunan kamus data database (`docs/DATABASE.md`).
-  3. Penyusunan panduan deployment dan pemeliharaan lokal (`docs/PANDUAN_PEMELIHARAAN.md`).
+### FASE 8: DOKUMENTASI DAN PAKET PENGUMPULAN
+- Status: SELESAI
+- Tanggal Eksekusi: 24 November 2026
+- Lingkup Kerja & Bukti:
+  1. Penulisan `README.md` di Root Proyek:
+     - Berbahasa Indonesia formal, terstruktur rapi, dan 100% Bebas Emoji.
+     - Memuat nama proyek & deskripsi, daftar lengkap fitur user & admin, rincian teknologi (HTML, CSS, PHP Native, MySQL, Zero JS), placeholder anggota kelompok & pembagian tugas, diagram pohon struktur folder, persyaratan lingkungan, langkah instalasi lengkap di Laravel Herd, kredensial akun pengujian (admin & user), alur kerja ringkas pembeli & admin, serta panduan troubleshooting masalah koneksi database dan gambar.
+  2. Pembaruan Komprehensif `docs/PANDUAN_KODE.md`:
+     - Peta lengkap berkas (Halaman -> File PHP -> Tabel Database -> Fungsi Bersama).
+     - Panduan sistem komentar bertanda terstandarisasi (`[FILE]`, `[BAGIAN]`, `[UBAH DI SINI]`, `[TAMBAH DI SINI]`, `[JANGAN UBAH]`, `[QUERY]`, dll) dan cara pencarian cepat di VS Code.
+     - Indeks lokasi parameter `[UBAH DI SINI]` dan batasan `[JANGAN UBAH]`.
+     - Panduan pengembangan fitur umum (Developer How-To): menambah kolom produk (berat), menambah status pesanan baru, menambah halaman baru di panel admin, mengubah tema dan variabel warna CSS, serta menambah kategori baru.
+  3. Validasi & Verifikasi `docs/ALUR_SISTEM.md`:
+     - Memuat teks ERD lengkap (Mermaid diagram relasi 9 tabel).
+     - State machine alur transaksi dan status pesanan/pembayaran.
+     - Definisi himpunan label kondisi produk tunggal (Opsi A: Seperti Baru, Bagus, Ada Minus).
+     - Alur audit mutasi stok barang preloved 1-of-1.
+  4. Konfigurasi Aturan `.gitignore` & Pengecualian Sampah:
+     - Mengabaikan direktori `/database/backup/`, file kredensial lokal pribadi (`mysql_config.php`), log, cache, berkas sementara (`.DS_Store`, `Thumbs.db`), folder IDE (`.vscode/`, `.idea/`), dan dump arsip sementara.
+     - Mempertahankan folder `/uploads/produk/` dengan foto produk WebP teroptimasi, serta mengecualikan bukti bayar uji coba (`/uploads/bukti/`).
+  5. Penyusunan `docs/CHECKLIST_PENGUMPULAN.md`:
+     - Daftar periksa kesiapan pengumpulan proyek mencakup aspek dokumentasi, arsitektur teknis tanpa JS, ketiadaan emoji, proteksi keamanan, integritas skema database, dan panduan membuat arsip ZIP bersih via `git archive` maupun PowerShell manual.
+  6. Verifikasi Sistem:
+     - Pemeriksaan lint `php -l` seluruh berkas: 0 error.
+     - Audit konsistensi database `database/tools/cek_konsistensi.php`: 0 anomali sistem (100% konsisten).
 
 ---
 
-### FASE 9: VERIFIKASI AKHIR DAN PENYERAHAN
-- Status: PENDING
+### FASE 9: PENGUJIAN AKHIR
+- Status: PENDING (Menunggu Persetujuan Pemilik Proyek)
 - Rencana Kerja:
-  1. Pengujian alur end-to-end tanpa JavaScript: registrasi, login, checkout, manajemen produk, mutasi status pesanan admin.
-  2. Validasi visual antarmuka desktop dan mobile (100% konsisten tanpa pergeseran layout).
-  3. Pembuatan file SQL dump final bersih siap import phpMyAdmin.
-  4. Penyerahan laporan akhir kepada pemilik proyek.
+  1. Pengujian menyeluruh semua halaman user dan admin di Laravel Herd (`http://namaproject.test`) tanpa link rusak, gambar hilang, warning, atau error PHP.
+  2. Pindai kepatuhan Zero JavaScript, Zero Emoji, Zero Sampah, dan Zero Demo yang tidak sah.
+  3. Verifikasi impor skema `toko_preloved_final.sql` pada basis data kosong sementara.
+  4. Pengulangan verifikasi alur transaksi dan keamanan (SQL injection, XSS, upload filter, pembatasan admin).
+  5. Penyusunan `docs/LAPORAN_FINAL.md`.

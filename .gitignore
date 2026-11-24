@@ -1,9 +1,47 @@
-# Database backups
+# SecondSpace - .gitignore
+# Pengecualian berkas repositori Git dan paket distribusi pengumpulan
+
+# Arsip pencadangan database berkala
 /database/backup/
 /database/backup/*
 
-# Local credentials
+# Konfigurasi kredensial lokal pribadi
 mysql_config.php
 
-# Original photos
+# Berkas log dan cache sistem
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Berkas sistem operasi & thumbnail cache
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Konfigurasi workspace editor & IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Berkas sementara & dump arsip kompresi
+*.tmp
+*.temp
+*.bak
+*.old
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Foto produk preloved original mentah sebelum konversi
 /produk_preloved_original/
+
+# Bukti pembayaran hasil uji coba (tetap pertahankan folder produk)
+/uploads/bukti/
+/uploads/bukti/*
