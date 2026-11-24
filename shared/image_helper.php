@@ -1,5 +1,8 @@
 <?php
-// Shared Helper: Validasi & Konversi Otomatis Upload Gambar ke Format WebP via PHP GD
+// [FILE] shared/image_helper.php — Validasi & Konversi Otomatis Upload Gambar ke Format WebP HD
+// Dipakai oleh: admin/produk_form.php
+// Tabel database disentuh: Tidak ada (operasi filesystem dan PHP GD image processing)
+// Fungsi bersama: processAndConvertToWebP()
 
 if (!function_exists('processAndConvertToWebP')) {
     /**

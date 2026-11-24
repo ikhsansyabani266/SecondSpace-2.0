@@ -52,52 +52,56 @@ $registerError = "";
 
 // Handler Form Register
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $name = trim($_POST["reg_name"] ?? "");
-    $username = trim($_POST["reg_username"] ?? "");
-    $password = $_POST["reg_password"] ?? "";
-    $confirmPassword = $_POST["reg_confirm"] ?? "";
-
-    if ($name === "" || $username === "" || $password === "") {
-        $registerError = "Semua kolom pendaftaran wajib diisi.";
-    } elseif ($password !== $confirmPassword) {
-        $registerError = "Konfirmasi password tidak cocok.";
-    } elseif (strlen($password) < 6) {
-        $registerError = "Password minimal 6 karakter.";
+    if (!csrf_verify()) {
+        $registerError = "Sesi keamanan formulir telah berakhir (CSRF). Silakan refresh dan coba lagi.";
     } else {
-        $stmtCheck = $conn->prepare("SELECT id FROM users WHERE username = ? LIMIT 1");
-        if ($stmtCheck) {
-            $stmtCheck->bind_param("s", $username);
-            $stmtCheck->execute();
-            $resCheck = $stmtCheck->get_result();
-            if ($resCheck && $resCheck->num_rows > 0) {
-                $registerError = "Username sudah digunakan. Silakan pilih username lain.";
-            } else {
-                $hashed = password_hash($password, PASSWORD_DEFAULT);
-                $stmtIns = $conn->prepare("INSERT INTO users (name, username, password, role) VALUES (?, ?, ?, 'user')");
-                if ($stmtIns) {
-                    $stmtIns->bind_param("sss", $name, $username, $hashed);
-                    if ($stmtIns->execute()) {
-                        $newId = (int)$conn->insert_id;
-                        $stmtIns->close();
+        $name = trim($_POST["reg_name"] ?? "");
+        $username = trim($_POST["reg_username"] ?? "");
+        $password = $_POST["reg_password"] ?? "";
+        $confirmPassword = $_POST["reg_confirm"] ?? "";
 
-                        // Login otomatis dan tetap simpan keranjang
-                        $existingCart = $_SESSION["cart"] ?? [];
-                        session_regenerate_id(true);
+        if ($name === "" || $username === "" || $password === "") {
+            $registerError = "Semua kolom pendaftaran wajib diisi.";
+        } elseif ($password !== $confirmPassword) {
+            $registerError = "Konfirmasi password tidak cocok.";
+        } elseif (strlen($password) < 6) {
+            $registerError = "Password minimal 6 karakter.";
+        } else {
+            $stmtCheck = $conn->prepare("SELECT id FROM users WHERE username = ? LIMIT 1");
+            if ($stmtCheck) {
+                $stmtCheck->bind_param("s", $username);
+                $stmtCheck->execute();
+                $resCheck = $stmtCheck->get_result();
+                if ($resCheck && $resCheck->num_rows > 0) {
+                    $registerError = "Username sudah digunakan. Silakan pilih username lain.";
+                } else {
+                    $hashed = password_hash($password, PASSWORD_DEFAULT);
+                    $stmtIns = $conn->prepare("INSERT INTO users (name, username, password, role) VALUES (?, ?, ?, 'user')");
+                    if ($stmtIns) {
+                        $stmtIns->bind_param("sss", $name, $username, $hashed);
+                        if ($stmtIns->execute()) {
+                            $newId = (int)$conn->insert_id;
+                            $stmtIns->close();
 
-                        $_SESSION["user_id"] = $newId;
-                        $_SESSION["username"] = $username;
-                        $_SESSION["name"] = $name;
-                        $_SESSION["role"] = "user";
-                        $_SESSION["cart"] = $existingCart;
+                            // Login otomatis dan tetap simpan keranjang
+                            $existingCart = $_SESSION["cart"] ?? [];
+                            session_regenerate_id(true);
 
-                        header("Location: " . $redirectTarget);
-                        exit;
-                    } else {
-                        $registerError = "Gagal membuat akun, silakan coba lagi.";
+                            $_SESSION["user_id"] = $newId;
+                            $_SESSION["username"] = $username;
+                            $_SESSION["name"] = $name;
+                            $_SESSION["role"] = "user";
+                            $_SESSION["cart"] = $existingCart;
+
+                            header("Location: " . $redirectTarget);
+                            exit;
+                        } else {
+                            $registerError = "Gagal membuat akun, silakan coba lagi.";
+                        }
                     }
                 }
+                $stmtCheck->close();
             }
-            $stmtCheck->close();
         }
     }
 }
@@ -344,6 +348,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
         <?php endif; ?>
 
         <form method="POST" action="register.php">
+            <?= csrf_field() ?>
             <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirectTarget) ?>">
 
             <div class="form-group">

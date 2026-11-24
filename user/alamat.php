@@ -23,26 +23,30 @@ $error = "";
 
 /* [AKSI]: Simpan Alamat Baru (Pure PHP POST - No JS) */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $recipientName = trim($_POST["recipient_name"] ?? "");
-    $phone = trim($_POST["phone"] ?? "");
-    $address = trim($_POST["address"] ?? "");
-    $province = trim($_POST["province"] ?? "");
-    $city = trim($_POST["city"] ?? "");
-    $postalCode = trim($_POST["postal_code"] ?? "");
-
-    if ($recipientName === "" || $phone === "" || $address === "" || $province === "" || $city === "" || $postalCode === "") {
-        $error = "Semua data alamat wajib diisi.";
+    if (!csrf_verify()) {
+        $error = "Sesi keamanan formulir telah berakhir (CSRF). Silakan refresh dan coba lagi.";
     } else {
-        $stmt = $conn->prepare(
-            "INSERT INTO addresses (user_id, recipient_name, phone, address, province, city, postal_code)
-             VALUES (?, ?, ?, ?, ?, ?, ?)"
-        );
-        if ($stmt) {
-            $stmt->bind_param("issssss", $userId, $recipientName, $phone, $address, $province, $city, $postalCode);
-            if ($stmt->execute()) {
-                $message = "Alamat berhasil disimpan.";
-            } else {
-                $error = "Alamat gagal disimpan. Silakan coba lagi.";
+        $recipientName = trim($_POST["recipient_name"] ?? "");
+        $phone = trim($_POST["phone"] ?? "");
+        $address = trim($_POST["address"] ?? "");
+        $province = trim($_POST["province"] ?? "");
+        $city = trim($_POST["city"] ?? "");
+        $postalCode = trim($_POST["postal_code"] ?? "");
+
+        if ($recipientName === "" || $phone === "" || $address === "" || $province === "" || $city === "" || $postalCode === "") {
+            $error = "Semua data alamat wajib diisi.";
+        } else {
+            $stmt = $conn->prepare(
+                "INSERT INTO addresses (user_id, recipient_name, phone, address, province, city, postal_code)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)"
+            );
+            if ($stmt) {
+                $stmt->bind_param("issssss", $userId, $recipientName, $phone, $address, $province, $city, $postalCode);
+                if ($stmt->execute()) {
+                    $message = "Alamat berhasil disimpan.";
+                } else {
+                    $error = "Alamat gagal disimpan. Silakan coba lagi.";
+                }
             }
         }
     }
@@ -209,6 +213,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             <?php endif; ?>
 
             <form method="POST" action="alamat.php">
+                <?= csrf_field() ?>
                 <div class="form-group" style="margin-bottom: 16px;">
                     <label style="display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--tx); margin-bottom: 6px;">NAMA PENERIMA</label>
                     <input type="text" name="recipient_name" placeholder="Nama Lengkap Penerima" required>

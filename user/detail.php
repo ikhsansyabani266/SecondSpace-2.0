@@ -656,6 +656,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             <!-- ACTION BUTTONS -->
             <?php if ($isAvailable): ?>
                 <form method="POST" action="keranjang.php">
+                    <?= csrf_field() ?>
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="product_id" value="<?= $product["id"] ?>">
                     <button type="submit" class="btn-cart-solid">TAMBAH KE KERANJANG</button>

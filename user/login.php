@@ -52,39 +52,43 @@ $loginError = "";
 
 // Handler Form Login
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = trim($_POST["username"] ?? "");
-    $password = $_POST["password"] ?? "";
-
-    if ($username === "" || $password === "") {
-        $loginError = "Username dan password wajib diisi.";
+    if (!csrf_verify()) {
+        $loginError = "Sesi keamanan formulir telah berakhir (CSRF). Silakan refresh dan coba lagi.";
     } else {
-        $stmt = $conn->prepare("SELECT id, name, username, password, role FROM users WHERE username = ? LIMIT 1");
-        if ($stmt) {
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $user = $result ? $result->fetch_assoc() : null;
-            $stmt->close();
+        $username = trim($_POST["username"] ?? "");
+        $password = $_POST["password"] ?? "";
 
-            if ($user && password_verify($password, $user["password"])) {
-                $existingCart = $_SESSION["cart"] ?? [];
-                session_regenerate_id(true);
+        if ($username === "" || $password === "") {
+            $loginError = "Username dan password wajib diisi.";
+        } else {
+            $stmt = $conn->prepare("SELECT id, name, username, password, role FROM users WHERE username = ? LIMIT 1");
+            if ($stmt) {
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $user = $result ? $result->fetch_assoc() : null;
+                $stmt->close();
 
-                $_SESSION["user_id"] = (int)$user["id"];
-                $_SESSION["username"] = $user["username"];
-                $_SESSION["name"] = $user["name"];
-                $_SESSION["role"] = $user["role"] ?? ($user["id"] == 1 ? "admin" : "user");
-                $_SESSION["cart"] = $existingCart;
+                if ($user && password_verify($password, $user["password"])) {
+                    $existingCart = $_SESSION["cart"] ?? [];
+                    session_regenerate_id(true);
 
-                if ($_SESSION["role"] === "admin" || (int)$user["id"] === 1) {
-                    header("Location: ../admin/index.php");
+                    $_SESSION["user_id"] = (int)$user["id"];
+                    $_SESSION["username"] = $user["username"];
+                    $_SESSION["name"] = $user["name"];
+                    $_SESSION["role"] = $user["role"] ?? ($user["id"] == 1 ? "admin" : "user");
+                    $_SESSION["cart"] = $existingCart;
+
+                    if ($_SESSION["role"] === "admin" || (int)$user["id"] === 1) {
+                        header("Location: ../admin/index.php");
+                        exit;
+                    }
+
+                    header("Location: " . $redirectTarget);
                     exit;
+                } else {
+                    $loginError = "Username atau password salah.";
                 }
-
-                header("Location: " . $redirectTarget);
-                exit;
-            } else {
-                $loginError = "Username atau password salah.";
             }
         }
     }
@@ -332,6 +336,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
         <?php endif; ?>
 
         <form method="POST" action="login.php">
+            <?= csrf_field() ?>
             <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirectTarget) ?>">
 
             <div class="form-group">

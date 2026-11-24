@@ -22,6 +22,12 @@ $userId = (int)($_SESSION["user_id"] ?? 0);
 /* [AKSI]: Simpan Pesanan Baru (Database Transaction & Mutex Lock) */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    // Guard Keamanan CSRF
+    if (!csrf_verify()) {
+        header("Location: pembayaran.php");
+        exit;
+    }
+
     // Guard Keranjang & Alamat
     if (!isset($_SESSION["cart"]) || empty($_SESSION["cart"])) {
         header("Location: keranjang.php");

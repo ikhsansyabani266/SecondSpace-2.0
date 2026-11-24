@@ -24,9 +24,15 @@ $totalProducts = ($resultProducts && $row = $resultProducts->fetch_assoc()) ? (i
 $totalOrders = 0;
 if (isset($_SESSION["user_id"])) {
     $userId = (int)$_SESSION["user_id"];
-    $resultOrders = $conn->query("SELECT COUNT(*) AS total FROM orders WHERE user_id = $userId");
-    if ($resultOrders && $rowO = $resultOrders->fetch_assoc()) {
-        $totalOrders = (int)$rowO["total"];
+    $stmtO = $conn->prepare("SELECT COUNT(*) AS total FROM orders WHERE user_id = ?");
+    if ($stmtO) {
+        $stmtO->bind_param("i", $userId);
+        $stmtO->execute();
+        $resO = $stmtO->get_result();
+        if ($resO && $rowO = $resO->fetch_assoc()) {
+            $totalOrders = (int)$rowO["total"];
+        }
+        $stmtO->close();
     }
 } else {
     $resAllOrders = $conn->query("SELECT COUNT(*) AS total FROM orders");

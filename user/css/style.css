@@ -1,5 +1,9 @@
+/* [FILE] user/css/style.css — Stylesheet Standar Halaman Pengguna SecondSpace */
+/* Mengatur tipografi, palet warna gelap, kartu produk, dan komponen antarmuka user */
+
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
+/* [BAGIAN: Variabel CSS Global] */
 :root {
     --bg: #0A0A0A;
     --s1: #161616;

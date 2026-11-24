@@ -25,28 +25,32 @@ $message = "";
 
 /* [AKSI]: Simpan Pesan Kontak Masuk (Pure PHP POST - No JS) */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $name = trim($_POST["name"] ?? "");
-    $email = trim($_POST["email"] ?? "");
-    $message = trim($_POST["message"] ?? "");
-
-    if ($name === "" || $email === "" || $message === "") {
-        $error = "Semua data wajib diisi.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = "Format email tidak valid.";
+    if (!csrf_verify()) {
+        $error = "Sesi keamanan formulir telah berakhir (CSRF). Silakan refresh dan coba lagi.";
     } else {
-        $stmt = $conn->prepare("INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)");
-        if ($stmt) {
-            $stmt->bind_param("sss", $name, $email, $message);
-            if ($stmt->execute()) {
-                $success = "Pesan berhasil dikirim. Terima kasih sudah menghubungi kami.";
-                $name = "";
-                $email = "";
-                $message = "";
-            } else {
-                $error = "Gagal mengirim pesan. Silakan coba lagi.";
-            }
+        $name = trim($_POST["name"] ?? "");
+        $email = trim($_POST["email"] ?? "");
+        $message = trim($_POST["message"] ?? "");
+
+        if ($name === "" || $email === "" || $message === "") {
+            $error = "Semua data wajib diisi.";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error = "Format email tidak valid.";
         } else {
-            $error = "Terjadi kesalahan sistem.";
+            $stmt = $conn->prepare("INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)");
+            if ($stmt) {
+                $stmt->bind_param("sss", $name, $email, $message);
+                if ($stmt->execute()) {
+                    $success = "Pesan berhasil dikirim. Terima kasih sudah menghubungi kami.";
+                    $name = "";
+                    $email = "";
+                    $message = "";
+                } else {
+                    $error = "Gagal mengirim pesan. Silakan coba lagi.";
+                }
+            } else {
+                $error = "Terjadi kesalahan sistem.";
+            }
         }
     }
 }
@@ -232,6 +236,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             <?php endif; ?>
 
             <form method="POST" action="contact.php">
+                <?= csrf_field() ?>
                 <div class="form-group" style="margin-bottom: 18px;">
                     <label style="display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--tx); margin-bottom: 8px;">NAMA LENGKAP</label>
                     <input type="text" name="name" value="<?= htmlspecialchars($name) ?>" placeholder="Masukkan nama kamu" required>

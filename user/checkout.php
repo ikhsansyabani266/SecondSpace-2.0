@@ -52,54 +52,55 @@ $postalCode    = trim($_POST["postal_code"] ?? ($lastAddress["postal_code"] ?? "
 $discountError = "";
 $discountSuccess = "";
 
-// Proses Tambah / Hapus Kode Diskon (Pure PHP Form Submission - No JS)
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["discount_action"])) {
-    $dAction = $_POST["discount_action"];
-    if ($dAction === "apply") {
-        $inputCode = strtoupper(trim($_POST["discount_code"] ?? ""));
-        if (empty($inputCode)) {
-            $discountError = "Silakan ketik kode diskon.";
-        } elseif (isset($validDiscounts[$inputCode])) {
-            $dInfo = $validDiscounts[$inputCode];
-            $_SESSION["discount"] = [
-                "code"        => $inputCode,
-                "type"        => $dInfo["type"],
-                "value"       => $dInfo["value"],
-                "description" => $dInfo["description"]
-            ];
-            $discountSuccess = "Kode diskon " . htmlspecialchars($inputCode) . " berhasil diterapkan!";
-        } else {
-            $discountError = "Kode diskon \"" . htmlspecialchars($inputCode) . "\" tidak valid atau sudah tidak berlaku.";
+// Proses Form Checkout & Kode Diskon (Pure PHP Form Submission - No JS)
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!csrf_verify()) {
+        $error = "Sesi keamanan formulir telah berakhir (CSRF). Silakan refresh dan coba lagi.";
+    } elseif (isset($_POST["discount_action"])) {
+        $dAction = $_POST["discount_action"];
+        if ($dAction === "apply") {
+            $inputCode = strtoupper(trim($_POST["discount_code"] ?? ""));
+            if (empty($inputCode)) {
+                $discountError = "Silakan ketik kode diskon.";
+            } elseif (isset($validDiscounts[$inputCode])) {
+                $dInfo = $validDiscounts[$inputCode];
+                $_SESSION["discount"] = [
+                    "code"        => $inputCode,
+                    "type"        => $dInfo["type"],
+                    "value"       => $dInfo["value"],
+                    "description" => $dInfo["description"]
+                ];
+                $discountSuccess = "Kode diskon " . htmlspecialchars($inputCode) . " berhasil diterapkan!";
+            } else {
+                $discountError = "Kode diskon \"" . htmlspecialchars($inputCode) . "\" tidak valid atau sudah tidak berlaku.";
+            }
+        } elseif ($dAction === "remove") {
+            unset($_SESSION["discount"]);
+            $discountSuccess = "Kode diskon berhasil dihapus.";
         }
-    } elseif ($dAction === "remove") {
-        unset($_SESSION["discount"]);
-        $discountSuccess = "Kode diskon berhasil dihapus.";
-    }
-}
-
-// Validasi Form Server-side Alamat Pengiriman
-if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["discount_action"])) {
-    $cleanPhone = preg_replace('/[^0-9]/', '', $phone);
-
-    if (empty($recipientName) || empty($phone) || empty($address) || empty($province) || empty($city) || empty($postalCode)) {
-        $error = "Semua field alamat pengiriman wajib diisi lengkap.";
-    } elseif (strlen($cleanPhone) < 9 || strlen($cleanPhone) > 15) {
-        $error = "Nomor handphone tidak valid (harus 9 hingga 15 digit angka).";
-    } elseif (!preg_match('/^[0-9]{5}$/', $postalCode)) {
-        $error = "Kode pos harus terdiri dari 5 digit angka.";
     } else {
-        // Simpan data alamat ke session untuk langkah pembayaran
-        $_SESSION["checkout_address"] = [
-            "recipient_name" => $recipientName,
-            "phone"          => $cleanPhone,
-            "address"        => $address,
-            "province"       => $province,
-            "city"           => $city,
-            "postal_code"    => $postalCode
-        ];
+        $cleanPhone = preg_replace('/[^0-9]/', '', $phone);
 
-        header("Location: pembayaran.php");
-        exit;
+        if (empty($recipientName) || empty($phone) || empty($address) || empty($province) || empty($city) || empty($postalCode)) {
+            $error = "Semua field alamat pengiriman wajib diisi lengkap.";
+        } elseif (strlen($cleanPhone) < 9 || strlen($cleanPhone) > 15) {
+            $error = "Nomor handphone tidak valid (harus 9 hingga 15 digit angka).";
+        } elseif (!preg_match('/^[0-9]{5}$/', $postalCode)) {
+            $error = "Kode pos harus terdiri dari 5 digit angka.";
+        } else {
+            // Simpan data alamat ke session untuk langkah pembayaran
+            $_SESSION["checkout_address"] = [
+                "recipient_name" => $recipientName,
+                "phone"          => $cleanPhone,
+                "address"        => $address,
+                "province"       => $province,
+                "city"           => $city,
+                "postal_code"    => $postalCode
+            ];
+
+            header("Location: pembayaran.php");
+            exit;
+        }
     }
 }
 
@@ -609,6 +610,7 @@ $isLoggedIn = true;
             <?php endif; ?>
 
             <form method="POST" id="addressForm">
+                <?= csrf_field() ?>
                 <div class="form-grid-2">
                     <div class="form-group">
                         <label for="recipient_name">Nama Penerima</label>
@@ -708,12 +710,14 @@ $isLoggedIn = true;
                                 <span class="discount-desc-tag"><?= htmlspecialchars($appliedDiscount["description"]) ?></span>
                             </div>
                             <form method="POST" action="checkout.php" style="margin: 0;">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="discount_action" value="remove">
                                 <button type="submit" class="btn-remove-discount">HAPUS</button>
                             </form>
                         </div>
                     <?php else: ?>
                         <form method="POST" action="checkout.php" class="discount-input-group">
+                            <?= csrf_field() ?>
                             <input type="hidden" name="discount_action" value="apply">
                             <input type="text" name="discount_code" placeholder="Ketik kode diskon..." class="discount-input" required>
                             <button type="submit" class="btn-apply-discount">PAKAI</button>

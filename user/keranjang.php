@@ -22,6 +22,11 @@ if (!isset($_SESSION["cart"])) {
 
 /* [AKSI]: Handler Aksi Keranjang (Pure PHP - No JavaScript) */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!csrf_verify()) {
+        $_SESSION["cart_notice"] = "Sesi keamanan form telah berakhir (CSRF). Silakan coba lagi.";
+        header("Location: keranjang.php");
+        exit;
+    }
     $action = $_POST["action"] ?? "";
 
     if ($action === "add") {
@@ -752,6 +757,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
 
                         <!-- Stepper Kuantitas (Pure HTML Form - No JS) -->
                         <form method="POST" class="stepper-form">
+                            <?= csrf_field() ?>
                             <input type="hidden" name="action" value="step">
                             <input type="hidden" name="product_id" value="<?= $item["id"] ?>">
                             <button type="submit" name="delta" value="-1" class="btn-qty-step" <?= $item["quantity"] <= 1 ? 'disabled' : '' ?>>-</button>
@@ -764,6 +770,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
                                 <?= formatRupiah($item["price"] * $item["quantity"]) ?>
                             </div>
                             <form method="POST" style="margin: 0;">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="product_id" value="<?= $item["id"] ?>">
                                 <button type="submit" class="btn-hapus-item">HAPUS</button>

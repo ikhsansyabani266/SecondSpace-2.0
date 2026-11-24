@@ -81,26 +81,30 @@ $discountSuccess = "";
 
 // Proses Tambah / Hapus Kode Diskon (Pure PHP Form Submission - No JS)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["discount_action"])) {
-    $dAction = $_POST["discount_action"];
-    if ($dAction === "apply") {
-        $inputCode = strtoupper(trim($_POST["discount_code"] ?? ""));
-        if (empty($inputCode)) {
-            $discountError = "Silakan ketik kode diskon.";
-        } elseif (isset($validDiscounts[$inputCode])) {
-            $dInfo = $validDiscounts[$inputCode];
-            $_SESSION["discount"] = [
-                "code"        => $inputCode,
-                "type"        => $dInfo["type"],
-                "value"       => $dInfo["value"],
-                "description" => $dInfo["description"]
-            ];
-            $discountSuccess = "Kode diskon " . htmlspecialchars($inputCode) . " berhasil diterapkan!";
-        } else {
-            $discountError = "Kode diskon \"" . htmlspecialchars($inputCode) . "\" tidak valid atau sudah tidak berlaku.";
+    if (!csrf_verify()) {
+        $discountError = "Sesi keamanan formulir telah berakhir (CSRF). Silakan coba lagi.";
+    } else {
+        $dAction = $_POST["discount_action"];
+        if ($dAction === "apply") {
+            $inputCode = strtoupper(trim($_POST["discount_code"] ?? ""));
+            if (empty($inputCode)) {
+                $discountError = "Silakan ketik kode diskon.";
+            } elseif (isset($validDiscounts[$inputCode])) {
+                $dInfo = $validDiscounts[$inputCode];
+                $_SESSION["discount"] = [
+                    "code"        => $inputCode,
+                    "type"        => $dInfo["type"],
+                    "value"       => $dInfo["value"],
+                    "description" => $dInfo["description"]
+                ];
+                $discountSuccess = "Kode diskon " . htmlspecialchars($inputCode) . " berhasil diterapkan!";
+            } else {
+                $discountError = "Kode diskon \"" . htmlspecialchars($inputCode) . "\" tidak valid atau sudah tidak berlaku.";
+            }
+        } elseif ($dAction === "remove") {
+            unset($_SESSION["discount"]);
+            $discountSuccess = "Kode diskon berhasil dihapus.";
         }
-    } elseif ($dAction === "remove") {
-        unset($_SESSION["discount"]);
-        $discountSuccess = "Kode diskon berhasil dihapus.";
     }
 }
 
@@ -675,6 +679,7 @@ $isLoggedIn = true;
             <h1 class="checkout-title">Metode Pembayaran</h1>
 
             <form method="POST" action="konfirmasi.php" id="paymentForm">
+                <?= csrf_field() ?>
 
                 <!-- 1. TRANSFER BANK (SELECTED BY DEFAULT) -->
                 <div class="pay-option-wrapper">
@@ -909,12 +914,14 @@ $isLoggedIn = true;
                                 <span class="discount-desc-tag"><?= htmlspecialchars($appliedDiscount["description"]) ?></span>
                             </div>
                             <form method="POST" action="pembayaran.php" style="margin: 0;">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="discount_action" value="remove">
                                 <button type="submit" class="btn-remove-discount">HAPUS</button>
                             </form>
                         </div>
                     <?php else: ?>
                         <form method="POST" action="pembayaran.php" class="discount-input-group">
+                            <?= csrf_field() ?>
                             <input type="hidden" name="discount_action" value="apply">
                             <input type="text" name="discount_code" placeholder="Ketik kode diskon..." class="discount-input" required>
                             <button type="submit" class="btn-apply-discount">PAKAI</button>
