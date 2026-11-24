@@ -1,127 +1,133 @@
-# SECONDSPACE - CURATED PRELOVED STREETWEAR PLATFORM
+# SECONDSPACE - Curated Preloved Streetwear E-Commerce Platform
 
-Platform e-commerce preloved streetwear berbasis web yang dirancang khusus untuk kurasi pakaian bekas berkualitas (1-of-1 pieces). Aplikasi ini mengusung pendekatan minimalis brutalist streetwear dengan performa tinggi, keamanan server-side yang ketat, dan arsitektur murni bebas JavaScript (Pure PHP Native + HTML5 + CSS3).
+[![PHP Native](https://img.shields.io/badge/PHP-8.1%20%7C%208.2%20%7C%208.3%20%7C%208.4-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
+[![MySQL](https://img.shields.io/badge/Database-MySQL%20%2F%20MariaDB-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Zero JavaScript](https://img.shields.io/badge/JavaScript-100%25%20Free%20(Zero%20JS)-black?style=for-the-badge)](https://developer.mozilla.org/)
+[![Brutalist UI](https://img.shields.io/badge/Design-Minimalist%20Brutalist-A3E635?style=for-the-badge&labelColor=0A0A0A)](https://github.com/)
+
+**SECONDSPACE** adalah platform e-commerce kurasi pakaian bekas jalanan (*curated preloved streetwear*) berkualitas tinggi yang dirancang khusus untuk barang-barang unik 1-of-1 pieces.
+
+Dibangun dengan prinsip arsitektur **100% Pure PHP Native, HTML5, dan CSS3 murni tanpa ketergantungan JavaScript (Zero JavaScript)**, sistem ini membuktikan bahwa aplikasi web interaktif, cepat, dan aman dapat dibangun secara elegan mengandalkan fitur native web standar, server-side rendering penuh, dan state management PHP session.
 
 ---
 
-## DAFTAR FITUR
+## DAFTAR ISI
 
-### 1. Fitur Pengguna (User / Pembeli)
-* **Katalog Produk Dinamis**: Eksplorasi katalog streetwear dengan pencarian teks, filter kategori (Baju, Celana, Jaket, Kemeja), filter kondisi terstandarisasi (Seperti Baru, Bagus, Ada Minus), sorting harga/terbaru, serta navigasi halaman (pagination).
-* **Detail Produk & Galeri Multi-Sudut**: Inspeksi mendalam produk dengan galeri foto multi-sudut (tampak depan, tampak belakang, detail bahan/minus) menggunakan preview murni CSS tanpa JavaScript.
-* **Manajemen Keranjang Belanja**: Penambahan item ke keranjang belanja berbasis session PHP dengan validasi ketersediaan stok aktual secara real-time.
-* **Buku Alamat Pengiriman**: Simpan dan kelola alamat tujuan pengiriman terhubung langsung ke profil pengguna.
-* **Checkout & Pilihan Kurir**: Kalkulasi subtotal belanja otomatis, pilihan kurir pengiriman (JNE, J&T, SiCepat), flat ongkos kirim transparan, dan catatan pengiriman.
-* **Instruksi Pembayaran Multi-Kanal**: Dukungan pembayaran via Transfer Bank (BCA, Mandiri) dengan nomor rekening resmi, E-Wallet (GoPay, OVO, Dana), dan QRIS dinamis.
-* **Konfirmasi & Notifikasi WhatsApp Otomatis**: Integrasi pembuatan pesan ringkasan transaksi otomatis yang siap diteruskan ke WhatsApp Customer Service admin toko untuk konfirmasi instan.
-* **Riwayat & Pelacakan Pesanan**: Halaman daftar pesanan pembeli dengan status transaksi real-time (Menunggu Pembayaran, Diproses, Dikirim, Selesai, Dibatalkan) dan nomor resi pengiriman.
-* **Formulir Kontak CS**: Layanan kirim pesan pertanyaan atau bantuan langsung dari pengguna ke dashboard admin.
-* **Autentikasi Pengguna**: Registrasi akun baru dan login aman dengan enkripsi password satu arah (bcrypt).
+1. [Fitur Unggulan](#fitur-unggulan)
+2. [Arsitektur & Konsep Teknis](#arsitektur--konsep-teknis)
+3. [Tangkapan Layar & Antarmuka](#tangkapan-layar--antarmuka)
+4. [Teknologi yang Digunakan](#teknologi-yang-digunakan)
+5. [Struktur Direktori Repositori](#struktur-direktori-repositori)
+6. [Persyaratan Sistem](#persyaratan-sistem)
+7. [Panduan Instalasi Cepat](#panduan-instalasi-cepat)
+8. [Akun Pengujian Demo](#akun-pengujian-demo)
+9. [Alur Transaksi & Mutasi Stok Preloved](#alur-transaksi--mutasi-stok-preloved)
+10. [Panduan Pemecahan Masalah (Troubleshooting)](#panduan-pemecahan-masalah-troubleshooting)
+11. [Tim Pengembang](#tim-pengembang)
 
-### 2. Fitur Administrator (Admin Toko)
-* **Dashboard Metrik & Ringkasan Penjualan**: Ringkasan performa toko secara real-time meliputi total omset penjualan sah, total pesanan diproses, antrean verifikasi pembayaran, total katalog produk aktif, serta daftar pesanan terbaru.
-* **Manajemen Katalog Produk**: Tambah produk baru, ubah rincian produk (nama, brand, ukuran, kategori, kondisi, material, harga, deskripsi), serta unggah dan kelola galeri multi-foto.
-* **Optimasi Gambar Otomatis**: Kompresi dan konversi otomatis gambar produk yang diunggah menjadi format WebP modern berbasis GD Library.
-* **Audit & Pelacakan Stok (Stock History)**: Riwayat mutasi kuantitas stok produk yang mencatat alasan perubahan (penjualan, pembatalan, restock admin) beserta ID penanggung jawab.
-* **Manajemen Pesanan & Alur Status**: Pembaruan status pesanan bertahap dari penerimaan pesanan, verifikasi pembayaran, pengemasan, penginputan nomor resi pengiriman, hingga penyelesaian pesanan.
-* **Audit Trail Perubahan Status**: Pencatatan log permanen di database setiap kali terjadi perubahan status pembayaran atau pesanan untuk akuntabilitas operasional toko.
-* **Manajemen Pesan Masuk**: Pengelolaan pesan dari formulir kontak pengguna dengan penanda status sudah dibaca atau belum dibaca.
-* **Penghapusan Aman (Safe Deletion Guard)**: Proteksi data relasional di mana produk yang sudah memiliki riwayat transaksi tidak dapat dihapus permanen, melainkan dinonaktifkan stoknya.
-* **Keamanan Admin**: Proteksi halaman admin berbasis middleware session dan pengecekan role secara ketat.
+---
+
+## FITUR UNGGULAN
+
+### 1. Pengalaman Pengguna (Pembeli / User)
+* **Katalog Brutalist & Multi-Filter**: Pencarian teks instan, filter kategori (Baju, Celana, Jaket, Kemeja), filter ukuran (S hingga XXL, 30 hingga 42), serta filter kondisi terstandarisasi (Seperti Baru, Bagus, Ada Minus).
+* **Galeri Foto Multi-Sudut (No-JS)**: Inspeksi produk mendalam dari tampak depan, tampak belakang, hingga detail bahan/minus hanya mengandalkan link server murni dan CSS transition.
+* **Keranjang Belanja Real-Time (1-of-1 Piece)**: Validasi stok langsung ke database dengan penguncian kuantitas 1 piece per item unik preloved.
+* **Buku Alamat & Pilihan Ekspedisi**: Manajemen alamat pengiriman pembeli terintegrasi dengan pilihan ekspedisi terpercaya (JNE, J&T, SiCepat) dan flat ongkos kirim transparan.
+* **Multi-Kanal Pembayaran**: Transfer Bank BCA/Mandiri resmi, E-Wallet (GoPay, OVO, Dana), dan QRIS dinamis.
+* **Integrasi WhatsApp CS Instan**: Generator format pesan rincian pesanan otomatis siap kirim ke WhatsApp admin untuk konfirmasi pembayaran cepat.
+* **Pelacakan Status Pesanan**: Pemantauan tahapan paket real-time (Menunggu Pembayaran, Diproses, Dikirim, Selesai) lengkap dengan nomor resi pengiriman.
+* **Keamanan Pengguna Penuh**: Proteksi Cross-Site Request Forgery (CSRF) pada seluruh formulir POST dan hashing kata sandi satu arah (`bcrypt`).
+
+### 2. Panel Administrator (Pengelola Toko)
+* **Dashboard Metrik & Laporan Finansial**: Agregat omset penjualan lunas sah, penghitung pesanan aktif, antrean verifikasi pembayaran, dan katalog barang tersedia.
+* **Manajemen Inventaris & Galeri Foto**: Tambah/ubah produk dengan konversi otomatis gambar ke format WebP terkompresi berbasis GD Library.
+* **Audit Trail Mutasi Stok**: Pencatatan riwayat setiap penambahan, pengurangan saat checkout, pembatalan order, atau restock fisik barang.
+* **Manajemen Alur Pesanan (State Machine)**: Pembaruan status transaksi berurutan, penolakan pembayaran tidak sah, penginputan nomor resi, dan penyelesaian order.
+* **Audit Trail Perubahan Status**: Log audit permanen di tabel `riwayat_status` untuk mencatat siapa admin yang mengubah status dan alasan perubahannya.
+* **Pusat Pesan Kontak CS**: Pengelolaan pesan masuk pembeli dari formulir kontak dengan penanda status baca.
+* **Safe Deletion Guard**: Proteksi relasional yang mencegah produk yang sudah memiliki transaksi terhapus dari basis data.
+
+---
+
+## ARSITEKTUR & KONSEP TEKNIS
+
+### Mengapa Zero JavaScript?
+Proyek ini mengimplementasikan tantangan teknis untuk membangun pengalaman web modern tanpa menggunakan JavaScript sama sekali:
+* **Modal & Lightbox**: Memanfaatkan pseudo-class CSS `:target`.
+* **Dropdown & Filter Accordion**: Memanfaatkan elemen bawaan HTML5 `<details>` dan `<summary>`.
+* **State Galeri Produk**: Memanfaatkan parameter URL server `?id=X&foto=0|1|2`.
+* **Notifikasi Flash**: Memanfaatkan pola arsitektur *Post/Redirect/Get* (PRG) via PHP Session.
+* **Keamanan Form**: Memanfaatkan token CSRF sesi yang divalidasi via `hash_equals()`.
 
 ---
 
 ## TEKNOLOGI YANG DIGUNAKAN
 
-* **Backend Engine**: PHP 8.x Native (Procedural & Clean Modular Architecture)
-* **Database**: MySQL 8.x / MariaDB (Koneksi via PHP MySQLi Extension)
-* **Frontend Markup**: HTML5 Semantik
-* **Styling**: CSS3 Murni (CSS Variables, Flexbox, CSS Grid, Pseudo-classes)
-* **Arsitektur JavaScript**: **ZERO JAVASCRIPT** (100% Bebas dari tag script, berkas .js, inline event handler, dan AJAX framework)
-* **Lingkungan Server Lokal**: Laravel Herd (Windows)
+* **Backend Engine**: PHP 8.x Native (Clean Procedural & Modular Pattern)
+* **Database Management**: MySQL 8.x / MariaDB (Koneksi via PHP MySQLi Extension)
+* **Markup**: HTML5 Semantik
+* **Styling**: Modern CSS3 (CSS Variables, Flexbox, CSS Grid, Pseudo-classes)
+* **JavaScript**: **0% (Zero JavaScript)**
+* **Server Environment**: Laravel Herd, Laragon, atau XAMPP
 
 ---
 
-## ANGGOTA KELOMPOK & PEMBAGIAN TUGAS
-
-| No | Nama Mahasiswa / Anggota | NIM | Pembagian Tugas / Tanggung Jawab |
-| :---: | :--- | :--- | :--- |
-| 1 | [Nama Anggota 1] | [NIM 1] | Koordinator Proyek, Backend User, Alur Checkout & Pembayaran |
-| 2 | [Nama Anggota 2] | [NIM 2] | Perancangan Database MySQL, Optimasi Skema, Audit Konsistensi |
-| 3 | [Nama Anggota 3] | [NIM 3] | Backend Modul Admin, Dashboard Metrik, Alur Status Pesanan & Stok |
-| 4 | [Nama Anggota 4] | [NIM 4] | Desain UI/UX Streetwear Brutalist, Responsive CSS, Implementasi No-JS |
-| 5 | [Nama Anggota 5] | [NIM 5] | Pengujian Sistem, Keamanan CSRF & Sanitasi Input, Dokumentasi |
-
-*(Catatan: Bagian tabel di atas dapat disesuaikan dengan data riil anggota kelompok).*
-
----
-
-## STRUKTUR FOLDER PROYEK
+## STRUKTUR DIREKTORI REPOSITORI
 
 ```text
 Aplikasi-Preloved-main/
-|-- admin/                     # Halaman dan antarmuka administrator toko
-|   |-- css/                   # Berkas stylesheet khusus panel admin (admin.css)
-|   |-- auth.php               # Guard autentikasi session admin
-|   |-- index.php              # Dashboard metrik & ringkasan penjualan
-|   |-- produk.php             # Tabel manajemen katalog produk
-|   |-- produk_form.php        # Formulir tambah & edit produk beserta upload foto
-|   |-- pesanan.php            # Daftar dan filter transaksi pesanan
-|   |-- detail_pesanan.php     # Rincian pesanan, audit status, & verifikasi pembayaran
-|   |-- stok.php               # Log audit mutasi stok barang
-|   |-- pesan.php              # Pengelolaan pesan masuk kontak pengguna
-|   |-- kategori.php           # Manajemen kategori pakaian
-|   |-- riwayat.php            # Log rekap riwayat sistem
-|   |-- konfirmasi_hapus.php   # Halaman perantara konfirmasi hapus data (CSRF safe)
-|   |-- login.php              # Halaman login administrator
-|   |-- logout.php             # Handler terminasi sesi login
-|   `-- sidebar.php            # Komponen navigasi vertikal admin
-|-- database/                  # Skrip basis data & utilitas pemeliharaan
-|   |-- backup/                # Arsip pencadangan database berkala (diabaikan git)
+|-- admin/                     # Modul Panel Pengelola / Administrator Toko
+|   |-- css/admin.css          # Stylesheet streetwear brutalist panel admin
+|   |-- auth.php               # Guard proteksi autentikasi session admin
+|   |-- index.php              # Dashboard metrik & ringkasan penjualan toko
+|   |-- produk.php             # Tabel manajemen inventaris produk & filter Opsi A
+|   |-- produk_form.php        # Formulir input/edit produk & unggah WebP otomatis
+|   |-- pesanan.php            # Daftar transaksi & filter pemrosesan pesanan
+|   |-- detail_pesanan.php     # Rincian pesanan, audit status, & verifikasi bayar
+|   |-- stok.php               # Tabel log audit mutasi riwayat stok produk
+|   |-- pesan.php              # Manajemen pesan masuk kontak pelanggan
+|   |-- kategori.php           # Handler integrasi kategori ke manajemen produk
+|   |-- konfirmasi_hapus.php   # Perantara konfirmasi hapus data aman (CSRF protected)
+|   |-- login.php / logout.php # Otentikasi sesi administrator
+|   `-- sidebar.php            # Navigasi vertikal admin
+|-- database/                  # Skrip Basis Data & Diagnostik
+|   |-- .htaccess              # Blokir akses publik ke berkas SQL
 |   |-- migrations/            # Rekam jejak migrasi perubahan struktur skema
-|   |-- tools/                 # Skrip diagnostik (cek konsistensi, backup, ekspor final)
-|   |-- .htaccess              # Proteksi blokir akses langsung berkas SQL via web
-|   |-- migration.sql          # Skrip migrasi komparatif
-|   `-- toko_preloved_final.sql# Dump basis data final bersih siap impor
-|-- docs/                      # Dokumentasi teknis dan panduan pengembang
-|   |-- .htaccess              # Proteksi pembatasan akses dokumen
-|   |-- ALUR_SISTEM.md         # Diagram alur sistem, state machine, dan teks ERD
-|   |-- CHECKLIST_PENGUMPULAN.md # Daftar periksa kesiapan paket pengumpulan
-|   |-- PANDUAN_KODE.md        # Peta kode, indeks komentar bertanda, & how-to guide
-|   `-- PROGRESS_FINAL.md      # Catatan audit kemajuan pengerjaan proyek
-|-- images/                    # Asset gambar umum dan logo antarmuka
-|-- shared/                    # Modul sentral, konfigurasi, dan fungsi bersama
-|   |-- css/                   # Design token global & variabel warna CSS (tokens.css)
-|   |-- config.php             # Konfigurasi sistem utama (database, status, konstanta)
-|   |-- config.example.php     # Templat contoh konfigurasi untuk deployment
-|   |-- koneksi.php            # Penghubung koneksi MySQLi dengan port auto-fallback
-|   |-- fungsi.php             # Library fungsi utilitas, format rupiah, dan audit status
-|   `-- image_helper.php       # Utilitas kompresi & konversi otomatis gambar ke WebP
-|-- uploads/                   # Direktori penyimpanan unggahan berkas publik
-|   `-- produk/                # Berkas foto produk terkompresi WebP
-|-- user/                      # Halaman antarmuka belanja pengguna (pembeli)
-|   |-- css/                   # Stylesheet antarmuka user (style.css, responsive.css)
-|   |-- images/                # Asset gambar khusus antarmuka user & QRIS
-|   |-- index.php              # Halaman beranda utama toko preloved
-|   |-- produk.php             # Katalog pencarian, filter, dan pagination produk
-|   |-- detail.php             # Halaman rincian produk & galeri multi-foto
-|   |-- keranjang.php          # Keranjang belanja & sinkronisasi stok
-|   |-- checkout.php           # Formulir alamat & pemilihan opsi kurir
-|   |-- pembayaran.php         # Pemilihan metode pembayaran & transfer instruksi
-|   |-- konfirmasi.php         # Transaksi atomik pembuatan pesanan & link konfirmasi WA
-|   |-- pesanan.php            # Riwayat daftar pesanan pengguna
-|   |-- detail_pesanan.php     # Status pelacakan pesanan pembeli
-|   |-- alamat.php             # Pengelolaan buku alamat pengiriman pengguna
-|   |-- contact.php            # Formulir kirim pesan layanan pelanggan
-|   |-- login.php              # Formulir login pembeli
-|   |-- register.php           # Formulir pendaftaran akun baru
-|   |-- logout.php             # Handler logout pengguna
-|   |-- auth.php               # Guard session pembeli
-|   |-- modern-theme.css       # Stylesheet tema streetwear modern
-|   |-- header.php             # Komponen navigasi atas pembeli
-|   `-- footer.php             # Komponen footer informasi toko
-|-- .gitignore                 # Aturan pengecualian berkas repositori Git
-|-- index.php                  # Entry point pengarah (redirect) ke katalog user
+|   |-- tools/                 # Skrip diagnostik konsistensi & ekspor final
+|   `-- toko_preloved_final.sql# Dump skema basis data bersih siap impor
+|-- docs/                      # Dokumentasi Teknis Proyek
+|   |-- ALUR_SISTEM.md         # ERD, diagram relasi, & state machine status transaksi
+|   |-- CHECKLIST_PENGUMPULAN.md # Daftar periksa kelengkapan pengumpulan proyek
+|   |-- LAPORAN_FINAL.md       # Laporan komprehensif pengujian sistem
+|   |-- PANDUAN_KODE.md        # Peta kode, indeks tagged comments, & developer how-to
+|   `-- PROGRESS_FINAL.md      # Rekam jejak kemajuan Fase 1 hingga Fase 9
+|-- shared/                    # Pustaka Sentral Bersama (Single Source of Truth)
+|   |-- css/tokens.css         # Variabel desain CSS global (warna, surface, font)
+|   |-- config.example.php     # Templat konfigurasi bersih untuk lingkungan baru
+|   |-- config.php             # Konfigurasi aplikasi, kredensial DB, & konstanta status
+|   |-- fungsi.php             # Library utilitas, format mata uang, CSRF, & audit status
+|   |-- image_helper.php       # Utilitas konversi & kompresi foto ke format WebP
+|   `-- koneksi.php            # Koneksi MySQLi dengan port auto-fallback (3307/3306)
+|-- uploads/                   # Direktori Berkas Publik
+|   `-- produk/                # Koleksi foto produk WebP teroptimasi (72 foto)
+|-- user/                      # Modul Antarmuka Pembeli / Pengguna Toko
+|   |-- css/                   # Stylesheet antarmuka pembeli (style.css, responsive.css)
+|   |-- images/                # Aset visual antarmuka pembeli & barcode QRIS
+|   |-- index.php              # Beranda etalase toko preloved
+|   |-- produk.php             # Katalog pencarian, multi-filter, & pagination
+|   |-- detail.php             # Detail produk & galeri multi-sudut no-JS
+|   |-- keranjang.php          # Keranjang belanja & validasi ketersediaan stok
+|   |-- checkout.php           # Alamat pengiriman & pemilihan kurir ekspedisi
+|   |-- pembayaran.php         # Petunjuk transfer pembayaran bank, e-wallet, & QRIS
+|   |-- konfirmasi.php         # Pembuatan transaksi atomik & konfirmasi WhatsApp
+|   |-- pesanan.php            # Riwayat daftar transaksi belanja pembeli
+|   |-- detail_pesanan.php     # Status pelacakan pesanan & nomor resi paket
+|   |-- alamat.php             # Buku alamat pengguna
+|   |-- contact.php            # Formulir pesan ke Customer Service
+|   `-- login.php / reg.php    # Otentikasi dan registrasi pembeli
+|-- .gitignore                 # Konfigurasi pengecualian repositori Git
+|-- index.php                  # Redirect entry point utama ke antarmuka katalog user
 `-- README.md                  # Dokumentasi utama proyek
 ```
 
@@ -129,115 +135,126 @@ Aplikasi-Preloved-main/
 
 ## PERSYARATAN SISTEM
 
-* **Sistem Operasi**: Windows 10 / 11, macOS, atau Linux
-* **Web Server & Environment**: Laravel Herd (Sangat Direkomendasikan) atau Laragon / XAMPP
-* **Versi PHP**: PHP 8.1, 8.2, 8.3, atau 8.4 (Wajib mengaktifkan ekstensi `mysqli`, `gd`, dan `session`)
-* **Database Server**: MySQL 8.0+ atau MariaDB 10.4+
-* **Web Browser**: Google Chrome, Mozilla Firefox, Microsoft Edge, atau Safari (Versi modern)
+* **Web Server**: Laravel Herd (Direkomendasikan), Laragon, atau XAMPP
+* **PHP Engine**: PHP 8.1 / 8.2 / 8.3 / 8.4
+* **Ekstensi PHP Wajib**: `mysqli`, `gd`, `session`, `curl`
+* **Basis Data**: MySQL 8.0+ atau MariaDB 10.4+
+* **Peramban**: Google Chrome, Mozilla Firefox, Microsoft Edge, Safari
 
 ---
 
-## LANGKAH INSTALASI DI LARAVEL HERD
+## PANDUAN INSTALASI CEPAT
 
-1. **Letakkan Folder Proyek**:
-   Pindahkan folder `Aplikasi-Preloved-main` ke dalam direktori park Laravel Herd (biasanya di `C:\Users\[Username]\Herd\` pada Windows) atau buka antarmuka Laravel Herd, pilih menu **Sites**, lalu tambahkan path folder ini.
+### 1. Clone Repositori
+```bash
+git clone https://github.com/username/Aplikasi-Preloved.git
+cd Aplikasi-Preloved
+```
 
-2. **Nyalakan Layanan Database**:
-   Buka aplikasi Laravel Herd, pastikan status **Nginx/Web Server** dan **MySQL Service** dalam kondisi berjalan (*Running*).
+### 2. Siapkan Server Lokal (Laravel Herd)
+Pindahkan folder proyek ke dalam direktori park Laravel Herd (misalnya `C:\Users\[Username]\Herd\Aplikasi-Preloved-main`) atau tambahkan lokasi folder melalui antarmuka **Herd > Sites**.
 
-3. **Buat Database Baru**:
-   Buka antarmuka phpMyAdmin atau MySQL GUI Client (HeidiSQL/TablePlus). Buat database baru dengan nama:
+### 3. Buat Database & Impor Skema
+1. Buka phpMyAdmin atau MySQL GUI client (HeidiSQL/TablePlus).
+2. Buat database baru bernama:
    ```text
    secondspace_preloved
    ```
-   Gunakan collation `utf8mb4_general_ci` atau `utf8mb4_unicode_ci`.
-
-4. **Impor Skema Basis Data**:
-   Pilih database `secondspace_preloved`, lalu impor berkas SQL bersih yang telah disediakan di:
+3. Impor berkas dump final yang telah disediakan di:
    ```text
-   /database/toko_preloved_final.sql
-   ```
-   Pastikan proses impor selesai dengan pesan sukses tanpa error.
-
-5. **Sesuaikan Konfigurasi Koneksi (Bila Diperlukan)**:
-   Secara default, file `shared/config.php` telah dikonfigurasi untuk mendeteksi port MySQL secara otomatis (mencoba port `3307` bawaan Herd terlebih dahulu, kemudian fallback ke port `3306`).
-   Bila kredensial Anda berbeda, sesuaikan konstanta berikut di `shared/config.php`:
-   ```php
-   define('DB_HOST', '127.0.0.1');
-   define('DB_USER', 'root');
-   define('DB_PASS', '');
-   define('DB_NAME', 'secondspace_preloved');
+   database/toko_preloved_final.sql
    ```
 
-6. **Akses Aplikasi**:
-   Buka peramban web dan akses alamat domain lokal Herd:
-   ```text
-   http://aplikasi-preloved-main.test
-   ```
-   *(Atau sesuai nama virtual host yang didaftarkan di Laravel Herd).*
+### 4. Konfigurasi Koneksi (Bila Diperlukan)
+File `shared/config.php` telah dirancang dengan fitur **auto-detect port fallback** (mencoba port `3307` default Herd, lalu otomatis fallback ke `3306`). Jika kredensial database Anda berbeda, sesuaikan konstanta di `shared/config.php`:
+```php
+define('DB_HOST', '127.0.0.1');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'secondspace_preloved');
+```
+
+### 5. Jalankan Aplikasi
+Buka peramban web dan akses alamat virtual host:
+```text
+http://aplikasi-preloved-main.test
+```
+*(Atau `http://localhost/Aplikasi-Preloved-main` jika menggunakan XAMPP).*
 
 ---
 
-## AKUN PENGUJIAN (TEST ACCOUNTS)
+## AKUN PENGUJIAN DEMO
 
-Sistem telah dilengkapi akun contoh siap pakai untuk pengujian fungsionalitas:
+Gunakan kredensial pengujian berikut untuk mengevaluasi sistem:
 
-| Peran (Role) | Username | Password | Keterangan Akses |
+| Peran (Role) | Username | Password | Hak Akses & Keterangan |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin` | `password` | Akses penuh ke seluruh menu Panel Admin (`/admin/login.php`) |
-| **User (Pembeli 1)** | `demo123` | `password` | Pengguna contoh dengan data pesanan dan alamat tersimpan |
-| **User (Pembeli 2)** | `ikhsan123` | `password` | Pengguna contoh untuk pengujian transaksi checkout baru |
+| **Administrator** | `admin` | `password` | Akses penuh dashboard admin, kelola pesanan, ubah status, kelola produk |
+| **User (Pembeli 1)** | `demo123` | `password` | Pengguna contoh dengan data pesanan dan alamat terdaftar |
+| **User (Pembeli 2)** | `ikhsan123` | `password` | Pengguna contoh untuk pengujian alur checkout baru |
 
 ---
 
-## ALUR PENGGUNAAN SINGKAT
+## ALUR TRANSAKSI & MUTASI STOK PRELOVED
 
-### 1. Alur Pengguna (Membeli Produk)
-1. **Pilih Produk**: Akses halaman katalog di `/user/produk.php`, gunakan filter kategori, ukuran, atau kondisi untuk menemukan barang streetwear yang diminati.
-2. **Lihat Detail**: Klik kartu produk untuk melihat detail spesifikasi, deskripsi minus, serta galeri foto dari berbagai sudut.
-3. **Masukkan ke Keranjang**: Klik tombol **Tambah ke Keranjang**.
-4. **Periksa Keranjang**: Masuk ke `/user/keranjang.php`, pastikan kuantitas barang sesuai, lalu klik **Lanjut ke Checkout**.
-5. **Isi Alamat & Pilih Kurir**: Pada halaman `/user/checkout.php`, pilih atau masukkan alamat pengiriman, pilih kurir (JNE / J&T / SiCepat), lalu klik **Lanjut ke Pembayaran**.
-6. **Pilih Metode Bayar**: Pada halaman `/user/pembayaran.php`, pilih opsi Transfer Bank (BCA/Mandiri), E-Wallet, atau QRIS. Klik **Bayar Sekarang**.
-7. **Konfirmasi Pesanan**: Halaman `/user/konfirmasi.php` akan menampilkan kode pesanan (`ORD-YYYYMMDD-XXXX`), instruksi transfer, serta tombol pintasan konfirmasi via WhatsApp ke CS toko.
-8. **Pantau Status**: Pembeli dapat memantau perkembangan paket di menu **Pesanan Saya** (`/user/pesanan.php`).
-
-### 2. Alur Administrator (Memproses Pesanan)
-1. **Login Admin**: Akses `/admin/login.php` dan masuk menggunakan akun administrator.
-2. **Pantau Dashboard**: Lihat ringkasan metrik omset dan daftar antrean transaksi baru pada dashboard `/admin/index.php`.
-3. **Buka Pesanan**: Masuk ke menu **Pesanan** (`/admin/pesanan.php`) untuk melihat daftar seluruh transaksi pembeli.
-4. **Verifikasi Pembayaran**: Buka **Detail Pesanan**, periksa kesesuaian pembayaran, lalu ubah Status Pembayaran menjadi **Terverifikasi** (status pesanan otomatis maju ke **Diproses**).
-5. **Kirim Barang & Input Resi**: Setelah barang dikemas, perbarui Status Pesanan menjadi **Dikirim** dan cantumkan nomor resi kurir.
-6. **Selesaikan Transaksi**: Setelah paket diterima oleh pembeli, ubah status pesanan menjadi **Selesai**. Seluruh perubahan status akan tercatat otomatis pada log audit sistem.
-
----
-
-## MASALAH UMUM & SOLUSI (TROUBLESHOOTING)
-
-### 1. Masalah: Gagal Terhubung ke Database (Connection Refused / Access Denied)
-* **Penyebab**: Layanan MySQL belum menyala, port MySQL tidak sesuai, atau username/password root tidak cocok.
-* **Solusi**:
-  1. Pastikan status MySQL di Laravel Herd aktif (berwarna hijau).
-  2. Periksa port MySQL yang digunakan Herd (umumnya port `3307`). File `shared/config.php` telah mendukung port fallback `[3307, 3306]`.
-  3. Pastikan database bernama `secondspace_preloved` sudah dibuat dan berkas `toko_preloved_final.sql` sudah diimpor.
-  4. Periksa file `shared/config.php` dan sesuaikan `DB_USER` dan `DB_PASS` dengan konfigurasi server Anda.
-
-### 2. Masalah: Gambar Produk Tidak Muncul (Broken Image Icon)
-* **Penyebab**: Folder upload belum memiliki izin baca (*file permission*) atau URL dasar (*Base URL*) tidak terdeteksi dengan tepat.
-* **Solusi**:
-  1. Pastikan berkas gambar WebP berada lengkap pada direktori `/uploads/produk/`.
-  2. Buka berkas `shared/config.php` dan periksa konstanta `BASE_URL`. Jika sistem mendeteksi domain secara keliru, Anda dapat mendefinisikan URL secara manual (contoh: `define('BASE_URL', 'http://aplikasi-preloved-main.test');`).
-  3. Pastikan web server memiliki akses baca terhadap folder `uploads/` dan `user/images/`.
-
-### 3. Masalah: Notifikasi Session Expired / Form CSRF Token Mismatch
-* **Penyebab**: Pengguna mendiamkan form terlalu lama sehingga sesi PHP berakhir atau browser memblokir cookie session lokal.
-* **Solusi**:
-  1. Refresh halaman untuk memperbarui token proteksi keamanan CSRF form.
-  2. Pastikan cookie diizinkan pada peramban web untuk domain `.test` atau `localhost`.
-  3. Pastikan direktori temporary session PHP pada sistem operasi memiliki hak akses tulis (*writable*).
+```text
+[Pembeli Memilih Produk]
+        |
+        v
+[Tambah ke Keranjang] (Stok dikunci 1 piece)
+        |
+        v
+[Isi Alamat & Pilih Kurir] (JNE / J&T / SiCepat)
+        |
+        v
+[Pilih Metode Pembayaran] (Transfer Bank / E-Wallet / QRIS)
+        |
+        v
+[Transaksi Atomik Checkout] ---> [Stok Berkurang] & [Tercatat di riwayat_stok]
+        |
+        v
+[Status: Menunggu Pembayaran] ---> [Konfirmasi WhatsApp CS]
+        |
+        v
+[Admin Verifikasi Pembayaran] ---> [Status: Diproses] & [Tercatat di riwayat_status]
+        |
+        v
+[Admin Input Resi & Kurir]    ---> [Status: Dikirim]
+        |
+        v
+[Barang Diterima Pembeli]     ---> [Status: Selesai]
+```
+*(Catatan: Jika pesanan dibatalkan oleh admin atau pembeli, stok barang secara otomatis dikembalikan ke etalase dan tercatat transparan pada log audit mutasi).*
 
 ---
 
-## LISENSI & HAK CIPTA
+## PANDUAN PEMECAHAN MASALAH (TROUBLESHOOTING)
 
-Dikembangkan untuk keperluan akademik dan demonstrasi arsitektur perangkat lunak e-commerce berbasis PHP Native berkinerja tinggi tanpa dependensi JavaScript. Seluruh aset foto produk dan merek dagang merupakan hak cipta dari masing-masing pemilik aslinya.
+1. **Koneksi Database Gagal (*Connection Refused*)**:
+   - Pastikan servis MySQL di Herd/XAMPP dalam status *Running*.
+   - Periksa port aktif MySQL Anda. `shared/config.php` telah mendukung prioritas port `[3307, 3306]`.
+2. **Gambar Produk Tidak Tampil**:
+   - Pastikan folder `uploads/produk/` memiliki berkas gambar format `.webp`.
+   - Buka `shared/config.php` dan pastikan konstanta `BASE_URL` mengarah tepat ke domain virtual host Anda.
+3. **Pesan Kesalahan Token CSRF Mismatch**:
+   - Terjadi jika form didiamkan hingga sesi kedaluwarsa. Muat ulang (*refresh*) halaman untuk memperbarui token keamanan form.
+
+---
+
+## TIM PENGEMBANG
+
+Proyek ini dikembangkan oleh:
+
+| Nama Pengembang | NIM | Tanggung Jawab Utama |
+| :--- | :--- | :--- |
+| **[Nama Anggota 1]** | [NIM 1] | Project Lead, Backend User, Checkout & Integrasi Alur Transaksi |
+| **[Nama Anggota 2]** | [NIM 2] | Perancangan Database MySQL, Optimasi Skema, Audit Konsistensi |
+| **[Nama Anggota 3]** | [NIM 3] | Panel Admin, Dashboard Metrik, State Machine Pesanan & Mutasi Stok |
+| **[Nama Anggota 4]** | [NIM 4] | Desain UI/UX Streetwear Brutalist, Responsive CSS, Arsitektur Zero-JS |
+| **[Nama Anggota 5]** | [NIM 5] | Pengujian Keamanan (CSRF & Sanitasi), Dokumentasi Teknis & Release |
+
+---
+
+## LISENSI
+
+Proyek ini dirilis untuk keperluan akademik dan demonstrasi arsitektur perangkat lunak e-commerce berbasis PHP Native berkinerja tinggi tanpa dependensi JavaScript. Seluruh merek dagang dan aset visual kurasi preloved merupakan hak cipta dari masing-masing pemiliknya.

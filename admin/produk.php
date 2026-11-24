@@ -141,9 +141,9 @@ if ($catQuery) {
     }
 }
 
-// Daftar Pilihan Ukuran & Kondisi (Persis Halaman User)
+// Daftar Pilihan Ukuran & Kondisi (Persis Halaman User - Opsi A)
 $availableSizes = ["S", "M", "L", "XL", "XXL", "30", "32", "34", "42"];
-$availableConditions = ["Seperti Baru", "Sangat Baik", "Baik", "Cukup"];
+$availableConditions = defined('DAFTAR_KONDISI_PRODUK') ? DAFTAR_KONDISI_PRODUK : ["Seperti Baru", "Bagus", "Ada Minus"];
 ?>
 <!DOCTYPE html>
 <html lang="id">

@@ -25,14 +25,12 @@ $activePage = basename($_SERVER['PHP_SELF']);
 
         <a href="index.php" class="nav-item <?= $activePage === 'index.php' ? 'active' : '' ?>">
             <div class="nav-item-left">
-                <span class="nav-icon">[D]</span>
                 <span>Dashboard</span>
             </div>
         </a>
 
         <a href="pesanan.php" class="nav-item <?= in_array($activePage, ['pesanan.php', 'detail_pesanan.php']) ? 'active' : '' ?>">
             <div class="nav-item-left">
-                <span class="nav-icon">[P]</span>
                 <span>Pesanan</span>
             </div>
             <?php if ($badgeMenunggu > 0): ?>
@@ -42,7 +40,6 @@ $activePage = basename($_SERVER['PHP_SELF']);
 
         <a href="riwayat.php" class="nav-item <?= in_array($activePage, ['riwayat.php', 'stok.php']) ? 'active' : '' ?>">
             <div class="nav-item-left">
-                <span class="nav-icon">[R]</span>
                 <span>Riwayat</span>
             </div>
         </a>
@@ -51,14 +48,12 @@ $activePage = basename($_SERVER['PHP_SELF']);
 
         <a href="produk.php" class="nav-item <?= in_array($activePage, ['produk.php', 'produk_form.php', 'kategori.php']) ? 'active' : '' ?>">
             <div class="nav-item-left">
-                <span class="nav-icon">[K]</span>
                 <span>Manajemen Produk</span>
             </div>
         </a>
 
         <a href="../user/index.php" target="_blank" rel="noopener" class="nav-item" style="margin-top: 16px; border: 1px dashed var(--ln);">
             <div class="nav-item-left">
-                <span class="nav-icon">[W]</span>
                 <span>Buka Toko User &UpperRightArrow;</span>
             </div>
         </a>

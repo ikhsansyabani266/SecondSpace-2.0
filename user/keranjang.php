@@ -755,15 +755,10 @@ $isLoggedIn = isset($_SESSION["user_id"]);
                             <?php endif; ?>
                         </div>
 
-                        <!-- Stepper Kuantitas (Pure HTML Form - No JS) -->
-                        <form method="POST" class="stepper-form">
-                            <?= csrf_field() ?>
-                            <input type="hidden" name="action" value="step">
-                            <input type="hidden" name="product_id" value="<?= $item["id"] ?>">
-                            <button type="submit" name="delta" value="-1" class="btn-qty-step" <?= $item["quantity"] <= 1 ? 'disabled' : '' ?>>-</button>
-                            <span class="qty-val-display"><?= $item["quantity"] ?></span>
-                            <button type="submit" name="delta" value="1" class="btn-qty-step" <?= ($item["quantity"] >= $item["stock"] || $item["is_sold"]) ? 'disabled' : '' ?>>+</button>
-                        </form>
+                        <!-- Kuantitas Produk Preloved (1-of-1 Piece, Tetap 1) -->
+                        <div class="stepper-form" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 38px; border: 1px solid var(--ln); border-radius: 4px; background: var(--s2);">
+                            <span class="qty-val-display" style="font-weight: 700; color: var(--tx);"><?= $item["quantity"] ?></span>
+                        </div>
 
                         <div class="item-price-col">
                             <div class="item-price-val">

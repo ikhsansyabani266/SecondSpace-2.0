@@ -657,7 +657,6 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         <!-- Kontak & Info (WA, IG, Lokasi) -->
         <div class="simple-footer-contact">
             <div class="simple-contact-item">
-                <span class="simple-contact-icon">[WA]</span>
                 <div>
                     <div class="simple-contact-label">WHATSAPP</div>
                     <a href="https://wa.me/<?= normalizePhone($whatsappNumber) ?>?s=p" target="_blank" rel="noopener" class="simple-contact-link">
@@ -667,7 +666,6 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             </div>
 
             <div class="simple-contact-item">
-                <span class="simple-contact-icon">[IG]</span>
                 <div>
                     <div class="simple-contact-label">INSTAGRAM</div>
                     <a href="https://instagram.com/secondspace" target="_blank" rel="noopener" class="simple-contact-link">
@@ -677,7 +675,6 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             </div>
 
             <div class="simple-contact-item">
-                <span class="simple-contact-icon">[HQ]</span>
                 <div>
                     <div class="simple-contact-label">LOKASI</div>
                     <span class="simple-contact-text">Jakarta, Indonesia</span>

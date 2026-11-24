@@ -134,7 +134,7 @@ function getOrderStatusBadge(string $status): array {
                 "label" => "MENUNGGU PEMBAYARAN",
                 "class" => "badge-menunggu",
                 "desc"  => "Menunggu transfer/bukti pembayaran.",
-                "icon"  => "⏳"
+                "icon"  => ""
             ];
     }
 }
@@ -812,7 +812,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                         ?>
                         <div class="tracking-banner menunggu">
                             <div class="tracking-banner-title">
-                                <span>⏳</span> MENUNGGU PEMBAYARAN
+                                MENUNGGU PEMBAYARAN
                             </div>
                             <p class="tracking-banner-desc">
                                 Total tagihan: <strong><?= formatRupiah($order["total"]) ?></strong> via <strong><?= htmlspecialchars($order["payment_method"] ?? "Transfer Bank") ?></strong>. Segera selesaikan pembayaran dan kirim bukti transfer agar pesananmu dapat langsung diproses.
@@ -820,9 +820,6 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
                                 <a href="<?= $waConfirmOrderUrl ?>" target="_blank" rel="noopener" class="btn-order-solid" style="font-size: 13px; padding: 8px 18px;">
                                     KONFIRMASI PEMBAYARAN VIA WHATSAPP CS
-                                </a>
-                                <a href="konfirmasi.php?kode=<?= urlencode($orderCode) ?>" class="btn-order-outline" style="font-size: 13px; padding: 7px 16px;">
-                                    CARA BAYAR &amp; REKENING &rarr;
                                 </a>
                             </div>
                         </div>
