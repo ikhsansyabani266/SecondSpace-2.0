@@ -119,9 +119,19 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
   5. Pengujian & Verifikasi:
      - Seluruh alur (filter katalog, detail produk, KPI dashboard, pesanan aktif, mutasi stok) telah diuji dan berfungsi normal 100%.
      - Kompilasi `php -l` pada seluruh berkas PHP: 0 kesalahan sintaks.
-  6. Catatan Kritis:
-     - Belum ada struktur database yang diubah atau dimigrasikan pada tahap ini (sesuai instruksi ketat).
-     - Tahap D (Migration) menunggu persetujuan laporan Tahap C.
+  6. Pelaksanaan Tahap D (Uji Coba Salinan Sementara & Dry-Run):
+     - Berkas migrasi DDL terstruktur dibuat di `database/migrations/012_fase5_penyederhanaan_struktur_final.sql`.
+     - Database salinan sementara `secondspace_salinan_uji` dibuat dan diisi data eksisting dari `toko_preloved_final.sql`.
+     - Skrip migrasi dijalankan pada database salinan dan berhasil 100% tanpa kendala:
+       * Kolom `order_number`, `total_price`, dan `status` terhapus dari `orders`.
+       * Kolom `condition_text` dan `is_demo` terhapus dari `products`.
+       * Kolom `condition` bertipe ENUM baku (`'Seperti Baru'`, `'Bagus'`, `'Ada Minus'`).
+       * Kolom `order_status` dan `payment_status` bertipe ENUM baku.
+       * Kolom `is_read` (TINYINT 1) ditambahkan ke tabel `contacts`.
+       * Foreign key `fk_orders_user` dan `fk_order_items_order` terbentuk sempurna.
+       * Seluruh 24 produk dan 5 pesanan aktif terjaga utuh tanpa anomali.
+     - Database salinan sementara telah dibersihkan kembali setelah verifikasi.
+     - Basis data utama `secondspace_preloved` belum disentuh dan siap dieksekusi setelah persetujuan akhir.
 
 ---
 
