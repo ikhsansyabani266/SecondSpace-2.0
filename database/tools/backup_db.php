@@ -1,6 +1,6 @@
 <?php
 // CLI Tool: Full database backup script via PHP
-require_once __DIR__ . '/../../db.php';
+require_once __DIR__ . '/../../shared/koneksi.php';
 
 $backupDir = __DIR__ . '/../backup';
 if (!is_dir($backupDir)) {
