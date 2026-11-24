@@ -172,13 +172,13 @@ $availableConditions = ["Seperti Baru", "Sangat Baik", "Baik", "Cukup"];
         <div class="admin-content">
             <!-- Flash Message -->
             <?php if ($successMsg = flash_get('success')): ?>
-                <div class="flash-msg success"><span>✓</span> <?= htmlspecialchars($successMsg) ?></div>
+                <div class="flash-msg success"><span class="status-badge-icon">[OK]</span> <?= htmlspecialchars($successMsg) ?></div>
             <?php endif; ?>
             <?php if ($infoMsg = flash_get('info')): ?>
                 <div class="flash-msg info"><span>ℹ</span> <?= htmlspecialchars($infoMsg) ?></div>
             <?php endif; ?>
             <?php if ($errorMsg = flash_get('error')): ?>
-                <div class="flash-msg error"><span>⚠️</span> <?= htmlspecialchars($errorMsg) ?></div>
+                <div class="flash-msg error"><span class="status-badge-icon">[!]</span> <?= htmlspecialchars($errorMsg) ?></div>
             <?php endif; ?>
 
             <!-- [BAGIAN: FILTER SECTIONS MANAJEMEN PRODUK (KATEGORI, SIZE, KONDISI, STATUS)] -->
@@ -287,7 +287,7 @@ $availableConditions = ["Seperti Baru", "Sangat Baik", "Baik", "Cukup"];
                             <?php if (empty($products)): ?>
                                 <tr>
                                     <td colspan="9" style="text-align: center; color: var(--mu); padding: 40px;">
-                                        <div style="font-size: 28px; margin-bottom: 8px;">🏷️</div>
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--accent);">[KATALOG]</div>
                                         <div style="font-weight: 700; color: var(--tx); font-size: 14px; margin-bottom: 4px;">Tidak Ada Produk Ditemukan</div>
                                         <div style="font-size: 13px; color: var(--mu);">Tidak ada produk yang cocok dengan kombinasi filter Anda.</div>
                                     </td>

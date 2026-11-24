@@ -649,7 +649,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
 
             <?php if (!empty($cartNotice)): ?>
                 <div style="background: rgba(124, 154, 109, 0.15); border: 1px solid var(--ac); color: var(--tx); padding: 10px 14px; border-radius: 4px; font-size: 13px; margin-bottom: 14px;">
-                    ℹ️ <?= htmlspecialchars($cartNotice) ?>
+                    [Info] <?= htmlspecialchars($cartNotice) ?>
                 </div>
             <?php endif; ?>
 

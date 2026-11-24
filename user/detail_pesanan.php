@@ -112,13 +112,13 @@ if ($order) {
 function getDetailStatusBadge(string $status): array {
     switch ($status) {
         case "Diproses":
-            return ["label" => "DIPROSES", "class" => "badge-diproses", "icon" => "📦"];
+            return ["label" => "DIPROSES", "class" => "badge-diproses", "icon" => ""];
         case "Dikirim":
-            return ["label" => "DIKIRIM", "class" => "badge-dikirim", "icon" => "🚚"];
+            return ["label" => "DIKIRIM", "class" => "badge-dikirim", "icon" => ""];
         case "Selesai":
-            return ["label" => "SELESAI", "class" => "badge-selesai", "icon" => "✓"];
+            return ["label" => "SELESAI", "class" => "badge-selesai", "icon" => ""];
         case "Dibatalkan":
-            return ["label" => "DIBATALKAN", "class" => "badge-dibatalkan", "icon" => "✕"];
+            return ["label" => "DIBATALKAN", "class" => "badge-dibatalkan", "icon" => ""];
         case "Menunggu Pembayaran":
         default:
             return ["label" => "MENUNGGU PEMBAYARAN", "class" => "badge-menunggu", "icon" => "⏳"];
@@ -634,7 +634,7 @@ if ($order) {
     <?php if (!$order): ?>
         <!-- ORDER NOT FOUND STATE -->
         <div class="not-found-card">
-            <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+            <div style="font-size: 16px; font-weight: bold; margin-bottom: 16px; color: var(--accent);">[DETAIL PESANAN]</div>
             <h1 class="not-found-title">PESANAN TIDAK DITEMUKAN</h1>
             <p class="not-found-desc">
                 Data pesanan dengan kode atau ID yang kamu tuju tidak ditemukan atau kamu belum memiliki izin untuk membukanya.
@@ -679,7 +679,7 @@ if ($order) {
                 </p>
                 <div class="banner-buttons">
                     <a href="<?= $waConfirmUrl ?>" target="_blank" rel="noopener" class="btn-action-solid">
-                        💬 KONFIRMASI PEMBAYARAN VIA WHATSAPP CS
+                        KONFIRMASI PEMBAYARAN VIA WHATSAPP CS
                     </a>
                     <a href="konfirmasi.php?kode=<?= urlencode($orderCodeDisplay) ?>" class="btn-action-outline">
                         PETUNJUK BAYAR &amp; RINGKASAN &rarr;
@@ -690,7 +690,7 @@ if ($order) {
         <?php elseif ($currentStatus === "Dikirim"): ?>
             <div class="detail-banner dikirim">
                 <div class="banner-heading">
-                    <span>🚚</span> PAKET DALAM PENGIRIMAN
+                    PAKET DALAM PENGIRIMAN
                 </div>
                 <p class="banner-desc">
                     Paketmu sudah dikirim dengan <strong><?= htmlspecialchars($order["shipping_courier"] ?: "Ekspedisi Reguler") ?></strong>
@@ -704,7 +704,7 @@ if ($order) {
                 ?>
                 <div class="banner-buttons">
                     <a href="<?= $waTrackUrl ?>" target="_blank" rel="noopener" class="btn-action-solid">
-                        💬 LACAK VIA WHATSAPP CS
+                        LACAK VIA WHATSAPP CS
                     </a>
                 </div>
             </div>
@@ -712,7 +712,7 @@ if ($order) {
         <?php elseif ($currentStatus === "Diproses"): ?>
             <div class="detail-banner diproses">
                 <div class="banner-heading">
-                    <span>📦</span> PESANAN SEDANG DIPROSES
+                    PESANAN SEDANG DIPROSES
                 </div>
                 <p class="banner-desc">
                     Pembayaran telah diverifikasi. Item pesananmu sedang disortir, dibersihkan dan dipacking rapi oleh tim SecondSpace.
@@ -723,7 +723,7 @@ if ($order) {
                 ?>
                 <div class="banner-buttons">
                     <a href="<?= $waProgresUrl ?>" target="_blank" rel="noopener" class="btn-action-solid">
-                        💬 TANYA PROGRES PESANAN
+                        TANYA PROGRES PESANAN
                     </a>
                 </div>
             </div>
@@ -731,7 +731,7 @@ if ($order) {
         <?php elseif ($currentStatus === "Selesai"): ?>
             <div class="detail-banner" style="background: #0E1812; border: 1px solid #2E5A36; border-left: 4px solid #10B981;">
                 <div class="banner-heading" style="color: #34D399;">
-                    <span>✓</span> PESANAN TELAH SELESAI
+                    PESANAN TELAH SELESAI
                 </div>
                 <p class="banner-desc" style="margin-bottom: 0;">
                     Pesanan telah selesai diterima. Terima kasih telah mempercayai SecondSpace untuk koleksi streetwear preloved pilihanmu!
@@ -747,7 +747,7 @@ if ($order) {
                 <!-- PRODUK YANG DIPESAN -->
                 <div class="detail-box">
                     <h2 class="detail-box-title">
-                        <span>👕</span> DAFTAR PRODUK (<?= count($items) ?> ITEM)
+                        DAFTAR PRODUK (<?= count($items) ?> ITEM)
                     </h2>
                     <div>
                         <?php foreach ($items as $it): ?>
@@ -781,7 +781,7 @@ if ($order) {
                 <!-- ALAMAT PENGIRIMAN -->
                 <div class="detail-box">
                     <h2 class="detail-box-title">
-                        <span>📍</span> ALAMAT PENGIRIMAN
+                        ALAMAT PENGIRIMAN
                     </h2>
                     <div class="info-data-list">
                         <div class="info-data-label">Nama Penerima</div>
@@ -825,7 +825,7 @@ if ($order) {
                 <!-- RINCIAN PEMBAYARAN -->
                 <div class="detail-box">
                     <h2 class="detail-box-title">
-                        <span>💳</span> RINCIAN PEMBAYARAN
+                        RINCIAN PEMBAYARAN
                     </h2>
 
                     <div class="summary-row">

@@ -105,28 +105,28 @@ function getOrderStatusBadge(string $status): array {
                 "label" => "DIPROSES",
                 "class" => "badge-diproses",
                 "desc"  => "Pesanan sudah dikonfirmasi & sedang disiapkan.",
-                "icon"  => "📦"
+                "icon"  => ""
             ];
         case "Dikirim":
             return [
                 "label" => "DIKIRIM",
                 "class" => "badge-dikirim",
                 "desc"  => "Paket sedang dalam perjalanan pengiriman kurir.",
-                "icon"  => "🚚"
+                "icon"  => ""
             ];
         case "Selesai":
             return [
                 "label" => "SELESAI",
                 "class" => "badge-selesai",
                 "desc"  => "Pesanan telah selesai diterima.",
-                "icon"  => "✓"
+                "icon"  => ""
             ];
         case "Dibatalkan":
             return [
                 "label" => "DIBATALKAN",
                 "class" => "badge-dibatalkan",
                 "desc"  => "Pesanan ini telah dibatalkan.",
-                "icon"  => "✕"
+                "icon"  => ""
             ];
         case "Menunggu Pembayaran":
         default:
@@ -671,7 +671,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
     <?php if (!$isLoggedIn): ?>
         <!-- GUEST STATE: BELUM LOGIN -->
         <div class="state-box">
-            <span class="state-icon">🔒</span>
+            
             <h2 class="state-title">Masuk untuk Melacak Pesanan</h2>
             <p class="state-desc">
                 Silakan masuk dengan akun SecondSpace kamu untuk melihat pesanan yang sedang diproses dan mengecek status pengiriman.
@@ -681,7 +681,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                     MASUK KE AKUN
                 </a>
                 <a href="<?= $waTrackUrl ?>" target="_blank" rel="noopener" class="btn-order-outline" style="padding: 12px 24px; font-size: 16px;">
-                    💬 TANYA ADMIN VIA WA
+                    TANYA ADMIN VIA WA
                 </a>
             </div>
         </div>
@@ -707,7 +707,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
         <?php if (empty($orders)): ?>
             <!-- EMPTY STATE: BELUM ADA PESANAN -->
             <div class="state-box">
-                <span class="state-icon">📦</span>
+                
                 <h2 class="state-title">Belum Ada Pesanan</h2>
                 <p class="state-desc">
                     <?php if ($statusFilter !== "semua"): ?>
@@ -754,7 +754,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                     <?php if ($currentStatus === "Dikirim"): ?>
                         <div class="tracking-banner dikirim">
                             <div class="tracking-banner-title">
-                                <span>🚚</span> PAKET SEDANG DALAM PENGIRIMAN
+                                PAKET SEDANG DALAM PENGIRIMAN
                             </div>
                             <p class="tracking-banner-desc">
                                 Paketmu telah diserahkan ke kurir dan sedang dalam perjalanan menuju alamat pengiriman.
@@ -779,7 +779,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                             ?>
                             <div style="margin-top: 14px;">
                                 <a href="<?= $waTrackUrlSpecific ?>" target="_blank" rel="noopener" class="btn-order-solid" style="font-size: 13px; padding: 7px 14px;">
-                                    💬 LACAK VIA WHATSAPP CS
+                                    LACAK VIA WHATSAPP CS
                                 </a>
                             </div>
                         </div>
@@ -787,7 +787,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                     <?php elseif ($currentStatus === "Diproses"): ?>
                         <div class="tracking-banner diproses">
                             <div class="tracking-banner-title">
-                                <span>📦</span> PESANAN SEDANG DIPROSES &amp; DIKEMAS
+                                PESANAN SEDANG DIPROSES &amp; DIKEMAS
                             </div>
                             <p class="tracking-banner-desc">
                                 Pembayaran pesananmu telah dikonfirmasi. Pakaian preloved kamu sedang disortir, dibersihkan, dan dikemas dengan rapi oleh tim SecondSpace sebelum diserahkan ke pihak ekspedisi.
@@ -797,7 +797,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                             $waProgresUrl = waLink($whatsappNumber, $waProgresMsg);
                             ?>
                             <a href="<?= $waProgresUrl ?>" target="_blank" rel="noopener" class="btn-order-outline" style="font-size: 13px; padding: 7px 14px;">
-                                💬 TANYA PROGRES PESANAN
+                                TANYA PROGRES PESANAN
                             </a>
                         </div>
 
@@ -819,7 +819,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                             </p>
                             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
                                 <a href="<?= $waConfirmOrderUrl ?>" target="_blank" rel="noopener" class="btn-order-solid" style="font-size: 13px; padding: 8px 18px;">
-                                    💬 KONFIRMASI PEMBAYARAN VIA WHATSAPP CS
+                                    KONFIRMASI PEMBAYARAN VIA WHATSAPP CS
                                 </a>
                                 <a href="konfirmasi.php?kode=<?= urlencode($orderCode) ?>" class="btn-order-outline" style="font-size: 13px; padding: 7px 16px;">
                                     CARA BAYAR &amp; REKENING &rarr;
@@ -830,7 +830,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                     <?php elseif ($currentStatus === "Selesai"): ?>
                         <div class="tracking-banner selesai">
                             <div class="tracking-banner-title">
-                                <span>✓</span> PESANAN SELESAI
+                                PESANAN SELESAI
                             </div>
                             <p class="tracking-banner-desc" style="margin-bottom: 0;">
                                 Pesanan ini telah berhasil diselesaikan. Terima kasih telah berbelanja di SecondSpace!
@@ -905,7 +905,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                 <p>Admin SecondSpace siap membantu mengecek posisi pesanan dan kendala ekspedisi langsung lewat WhatsApp.</p>
             </div>
             <a href="<?= $waTrackUrl ?>" target="_blank" rel="noopener" class="btn-order-solid">
-                💬 HUBUNGI CS VIA WHATSAPP
+                HUBUNGI CS VIA WHATSAPP
             </a>
         </div>
 

@@ -150,7 +150,7 @@ $currentNav = $tipe === 'produk' ? 'produk' : 'pesan';
 
         <section class="card" style="max-width: 650px; margin: 40px auto; border-color: var(--danger);">
             <div style="text-align: center; margin-bottom: 24px;">
-                <span style="font-size: 48px; display: block; margin-bottom: 12px;">⚠️</span>
+                <span style="font-size: 24px; font-weight: bold; display: block; margin-bottom: 12px; color: var(--danger);">[PERINGATAN HAPUS]</span>
                 <h2 style="font-family: var(--font-heading); color: var(--danger); font-size: 24px;">
                     YAKIN INGIN MENGHAPUS <?= strtoupper($tipe) ?> INI?
                 </h2>

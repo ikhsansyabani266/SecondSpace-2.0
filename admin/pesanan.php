@@ -151,16 +151,16 @@ $currentNav = "pesanan";
         <div class="admin-content">
             <!-- FLASH NOTIFIKASI -->
             <?php if ($successMsg = flash_get('success')): ?>
-                <div class="flash-msg success"><span>✓</span> <?= htmlspecialchars($successMsg) ?></div>
+                <div class="flash-msg success"><span class="status-badge-icon">[OK]</span> <?= htmlspecialchars($successMsg) ?></div>
             <?php elseif (!empty($_SESSION['flash_success'])): ?>
-                <div class="flash-msg success"><span>✓</span> <?= htmlspecialchars($_SESSION['flash_success']) ?></div>
+                <div class="flash-msg success"><span class="status-badge-icon">[OK]</span> <?= htmlspecialchars($_SESSION['flash_success']) ?></div>
                 <?php unset($_SESSION['flash_success']); ?>
             <?php endif; ?>
 
             <?php if ($errorMsg = flash_get('error')): ?>
-                <div class="flash-msg error"><span>⚠️</span> <?= htmlspecialchars($errorMsg) ?></div>
+                <div class="flash-msg error"><span class="status-badge-icon">[!]</span> <?= htmlspecialchars($errorMsg) ?></div>
             <?php elseif (!empty($_SESSION['flash_error'])): ?>
-                <div class="flash-msg error"><span>⚠️</span> <?= htmlspecialchars($_SESSION['flash_error']) ?></div>
+                <div class="flash-msg error"><span class="status-badge-icon">[!]</span> <?= htmlspecialchars($_SESSION['flash_error']) ?></div>
                 <?php unset($_SESSION['flash_error']); ?>
             <?php endif; ?>
 
@@ -255,7 +255,7 @@ $currentNav = "pesanan";
 
                 <?php if (empty($orders)): ?>
                     <div class="empty-box">
-                        <span class="empty-box-icon">📦</span>
+                        <span class="empty-box-icon">[KOSONG]</span>
                         <h3 class="empty-box-title">Tidak Ada Pesanan Ditemukan</h3>
                         <p class="empty-box-desc">Tidak ada data pesanan yang sesuai dengan filter atau kata kunci pencarian kamu.</p>
                         <a href="pesanan.php" class="btn btn-secondary btn-sm">Reset Filter Pencarian</a>
@@ -298,14 +298,14 @@ $currentNav = "pesanan";
                                             <strong style="color: var(--tx); font-size: 12px;"><?= htmlspecialchars($buyerName) ?></strong>
                                             <?php if (!empty($o['recipient_phone'])): ?>
                                                 <span class="meta-sub" style="font-size: 10.5px;">
-                                                    📞 <?= htmlspecialchars($o['recipient_phone']) ?>
+                                                    Telp: <?= htmlspecialchars($o['recipient_phone']) ?>
                                                     <?php if (!empty($cleanPhone)): ?>
                                                         &bull; <a href="https://wa.me/<?= $cleanPhone ?>" target="_blank" rel="noopener" style="color: var(--ac);">WA ↗</a>
                                                     <?php endif; ?>
                                                 </span>
                                             <?php endif; ?>
                                             <?php if (!empty($o['recipient_city'])): ?>
-                                                <span class="meta-sub" style="font-size: 10.5px;">📍 <?= htmlspecialchars($o['recipient_city']) ?></span>
+                                                <span class="meta-sub" style="font-size: 10.5px;">Kota: <?= htmlspecialchars($o['recipient_city']) ?></span>
                                             <?php endif; ?>
                                         </td>
                                         <td>
@@ -316,7 +316,7 @@ $currentNav = "pesanan";
                                             <span class="badge-status <?= $badgePayClass ?>" style="font-size: 9.5px; padding: 2px 6px; white-space: nowrap;"><?= htmlspecialchars(strtoupper($payStatus)) ?></span>
                                             <span class="meta-sub" style="font-size: 10.5px;"><?= htmlspecialchars($o['payment_method'] ?? 'Transfer') ?></span>
                                             <?php if (!empty($o['proof_image'])): ?>
-                                                <span class="badge-status status-info" style="font-size: 8.5px; padding: 1px 5px; margin-top: 3px; white-space: nowrap;">📸 BUKTI ADA</span>
+                                                <span class="badge-status status-info" style="font-size: 8.5px; padding: 1px 5px; margin-top: 3px; white-space: nowrap;">BUKTI TERSEDIA</span>
                                             <?php endif; ?>
                                         </td>
                                         <td>

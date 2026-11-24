@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- [BAGIAN: Notifikasi Error] -->
     <?php if (!empty($errorMsg)): ?>
         <div class="flash-msg error">
-            <span>⚠️</span> <?= htmlspecialchars($errorMsg) ?>
+            <strong>[!]</strong>  <?= htmlspecialchars($errorMsg) ?>
         </div>
     <?php endif; ?>
     <!-- [/BAGIAN: Notifikasi Error] -->

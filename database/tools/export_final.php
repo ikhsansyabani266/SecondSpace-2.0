@@ -1,6 +1,6 @@
 <?php
 // CLI Tool: Export database ke /database/toko_preloved_final.sql
-require_once __DIR__ . '/../../db.php';
+require_once __DIR__ . '/../../shared/koneksi.php';
 
 $exportFile = __DIR__ . '/../toko_preloved_final.sql';
 

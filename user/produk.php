@@ -258,7 +258,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         }
 
         .checkbox-label input[type="checkbox"]:checked::after {
-            content: "✓";
+            content: "[v]";
             color: #0A0A0A;
             font-size: 12px;
             font-weight: 900;

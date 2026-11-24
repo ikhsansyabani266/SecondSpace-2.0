@@ -334,7 +334,7 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
             <p class="auth-subtitle">Daftar instan dalam hitungan detik untuk menyelesaikan pesanan.</p>
             <?php if ($cartCount > 0): ?>
                 <div class="cart-safe-pill">
-                    🔒 <?= $cartCount ?> produk di keranjang tetap aman
+                    <?= $cartCount ?> produk di keranjang tersimpan aman
                 </div>
             <?php endif; ?>
         </div>

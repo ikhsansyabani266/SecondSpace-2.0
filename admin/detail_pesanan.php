@@ -341,16 +341,16 @@ $currentNav = "pesanan";
         <div class="admin-content">
             <!-- FLASH NOTIFIKASI -->
             <?php if ($successMsg = flash_get('success')): ?>
-                <div class="flash-msg success"><span>✓</span> <?= htmlspecialchars($successMsg) ?></div>
+                <div class="flash-msg success"><span class="status-badge-icon">[OK]</span> <?= htmlspecialchars($successMsg) ?></div>
             <?php elseif (!empty($_SESSION['flash_success'])): ?>
-                <div class="flash-msg success"><span>✓</span> <?= htmlspecialchars($_SESSION['flash_success']) ?></div>
+                <div class="flash-msg success"><span class="status-badge-icon">[OK]</span> <?= htmlspecialchars($_SESSION['flash_success']) ?></div>
                 <?php unset($_SESSION['flash_success']); ?>
             <?php endif; ?>
 
             <?php if ($errorMsg = flash_get('error')): ?>
-                <div class="flash-msg error"><span>⚠️</span> <?= htmlspecialchars($errorMsg) ?></div>
+                <div class="flash-msg error"><span class="status-badge-icon">[!]</span> <?= htmlspecialchars($errorMsg) ?></div>
             <?php elseif (!empty($_SESSION['flash_error'])): ?>
-                <div class="flash-msg error"><span>⚠️</span> <?= htmlspecialchars($_SESSION['flash_error']) ?></div>
+                <div class="flash-msg error"><span class="status-badge-icon">[!]</span> <?= htmlspecialchars($_SESSION['flash_error']) ?></div>
                 <?php unset($_SESSION['flash_error']); ?>
             <?php endif; ?>
 
@@ -490,7 +490,7 @@ $currentNav = "pesanan";
                                 <strong style="color: var(--tx); font-size: 14px;"><?= htmlspecialchars($order['recipient_phone'] ?? '-') ?></strong>
                                 <?php if (!empty($cleanPhone)): ?>
                                     <a href="https://wa.me/<?= $cleanPhone ?>?text=<?= urlencode("Halo " . ($order['recipient_name'] ?: 'Kak') . ", perihal pesanan " . $orderCode) ?>" target="_blank" rel="noopener" style="display: inline-block; margin-top: 4px; color: var(--ac); font-size: 12px; font-weight: 700;">
-                                        💬 Chat Pembeli via WA ↗
+                                        Chat Pembeli via WA ↗
                                     </a>
                                 <?php endif; ?>
                             </div>

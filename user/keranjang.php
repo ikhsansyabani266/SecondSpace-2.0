@@ -744,9 +744,9 @@ $isLoggedIn = isset($_SESSION["user_id"]);
                             </div>
 
                             <?php if ($item["is_sold"]): ?>
-                                <span class="item-issue-badge">⚠️ Produk ini sudah terjual (SOLD)</span>
+                                <span class="item-issue-badge">[SOLD] Produk ini sudah terjual</span>
                             <?php elseif ($item["exceeds"]): ?>
-                                <span class="item-issue-badge">⚠️ Stok tersisa hanya <?= $item["stock"] ?> buah</span>
+                                <span class="item-issue-badge">[Stok Terbatas] Stok tersisa hanya <?= $item["stock"] ?> buah</span>
                             <?php endif; ?>
                         </div>
 
@@ -790,7 +790,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
 
                     <?php if ($hasStockIssue): ?>
                         <div style="background: rgba(185, 28, 28, 0.15); border: 1px solid var(--alert); color: #FCA5A5; padding: 12px; border-radius: 4px; font-size: 13px; margin-top: 18px; line-height: 1.4;">
-                            ⚠️ Beberapa item di keranjangmu stoknya habis atau berkurang. Hapus atau sesuaikan item bertanda peringatan untuk melanjutkan checkout.
+                            Perhatian: Beberapa item di keranjangmu stoknya habis atau berkurang. Hapus atau sesuaikan item bertanda peringatan untuk melanjutkan checkout.
                         </div>
                     <?php endif; ?>
                 </div>
@@ -825,16 +825,16 @@ $isLoggedIn = isset($_SESSION["user_id"]);
                 <span class="empty-cat-label">Jelajahi Kategori Pilihan:</span>
                 <div class="empty-cat-pills">
                     <a href="produk.php?kategori=Baju" class="empty-cat-pill">
-                        <span>👕</span> BAJU &amp; KAOS
+                        BAJU &amp; KAOS
                     </a>
                     <a href="produk.php?kategori=Kemeja" class="empty-cat-pill">
-                        <span>👔</span> KEMEJA
+                        KEMEJA
                     </a>
                     <a href="produk.php?kategori=Celana" class="empty-cat-pill">
-                        <span>👖</span> CELANA
+                        CELANA
                     </a>
                     <a href="produk.php?kategori=Jacket" class="empty-cat-pill">
-                        <span>🧥</span> JACKET &amp; HOODIE
+                        JACKET &amp; HOODIE
                     </a>
                 </div>
             </div>

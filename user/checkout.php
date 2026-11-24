@@ -604,7 +604,7 @@ $isLoggedIn = true;
 
             <?php if (!empty($error)): ?>
                 <div class="alert-error">
-                    ⚠️ <?= htmlspecialchars($error) ?>
+                    [Perhatian] <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
 
@@ -704,7 +704,7 @@ $isLoggedIn = true;
                     <?php if ($appliedDiscount): ?>
                         <div class="discount-applied-card">
                             <div>
-                                <span class="discount-code-tag">✓ <?= htmlspecialchars($appliedDiscount["code"]) ?></span>
+                                <span class="discount-code-tag">[Kupon Aktif] <?= htmlspecialchars($appliedDiscount["code"]) ?></span>
                                 <span class="discount-desc-tag"><?= htmlspecialchars($appliedDiscount["description"]) ?></span>
                             </div>
                             <form method="POST" action="checkout.php" style="margin: 0;">
@@ -721,9 +721,9 @@ $isLoggedIn = true;
                     <?php endif; ?>
 
                     <?php if (!empty($discountError)): ?>
-                        <div class="discount-alert error">⚠️ <?= htmlspecialchars($discountError) ?></div>
+                        <div class="discount-alert error">[!] <?= htmlspecialchars($discountError) ?></div>
                     <?php elseif (!empty($discountSuccess)): ?>
-                        <div class="discount-alert success">✓ <?= htmlspecialchars($discountSuccess) ?></div>
+                        <div class="discount-alert success">[OK] <?= htmlspecialchars($discountSuccess) ?></div>
                     <?php endif; ?>
                 </div>
             </div>

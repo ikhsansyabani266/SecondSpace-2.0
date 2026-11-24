@@ -155,13 +155,13 @@ $stmt->close();
         <div class="admin-content">
             <!-- Flash Message -->
             <?php if ($successMsg = flash_get('success')): ?>
-                <div class="flash-msg success"><span>✓</span> <?= htmlspecialchars($successMsg) ?></div>
+                <div class="flash-msg success"><span class="status-badge-icon">[OK]</span> <?= htmlspecialchars($successMsg) ?></div>
             <?php endif; ?>
             <?php if ($infoMsg = flash_get('info')): ?>
                 <div class="flash-msg info"><span>ℹ</span> <?= htmlspecialchars($infoMsg) ?></div>
             <?php endif; ?>
             <?php if ($errorMsg = flash_get('error')): ?>
-                <div class="flash-msg error"><span>⚠️</span> <?= htmlspecialchars($errorMsg) ?></div>
+                <div class="flash-msg error"><span class="status-badge-icon">[!]</span> <?= htmlspecialchars($errorMsg) ?></div>
             <?php endif; ?>
 
             <!-- [BAGIAN: 2 KARTU PENARIKAN DATA BAR (AVAILABLE VS SOLD)] -->
@@ -276,7 +276,7 @@ $stmt->close();
                             <?php if (empty($itemsList)): ?>
                                 <tr>
                                     <td colspan="5" style="text-align: center; color: var(--mu); padding: 48px 20px;">
-                                        <div style="font-size: 32px; margin-bottom: 8px;">📜</div>
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--accent);">[LOG MUTASI]</div>
                                         <div style="font-weight: 700; color: var(--tx); font-size: 15px; margin-bottom: 4px;">Tidak Ada Data Ditemukan</div>
                                         <div style="font-size: 13px; color: var(--mu);">Tidak ada catatan koleksi preloved yang sesuai dengan filter pencarian.</div>
                                     </td>

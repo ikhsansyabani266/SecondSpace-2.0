@@ -287,12 +287,12 @@ if ($qSold) {
             <!-- [BAGIAN: Flash Messages] -->
             <?php if ($successMsg = flash_get('success')): ?>
                 <div class="flash-msg success">
-                    <span>✓</span> <?= htmlspecialchars($successMsg) ?>
+                    <strong>[OK]</strong>  <?= htmlspecialchars($successMsg) ?>
                 </div>
             <?php endif; ?>
             <?php if ($errorMsg = flash_get('error')): ?>
                 <div class="flash-msg error">
-                    <span>⚠️</span> <?= htmlspecialchars($errorMsg) ?>
+                    <strong>[!]</strong>  <?= htmlspecialchars($errorMsg) ?>
                 </div>
             <?php endif; ?>
             <!-- [/BAGIAN: Flash Messages] -->
@@ -418,7 +418,7 @@ if ($qSold) {
                 <!-- 3. STRIP RINGKASAN HASIL FILTER -->
                 <div class="report-summary-strip">
                     <span>
-                        📌 Menampilkan <strong><?= (int)$filteredSummary['filtered_count'] ?> transaksi</strong> 
+                        Menampilkan <strong><?= (int)$filteredSummary['filtered_count'] ?> transaksi</strong> 
                         &bull; Periode: <strong style="color: var(--tx);"><?= htmlspecialchars($periodLabel) ?></strong>
                         <?php if (!empty($selectedMethod)): ?>
                             &bull; Metode: <strong style="color: var(--ac);"><?= htmlspecialchars($selectedMethod) ?></strong>
@@ -447,7 +447,7 @@ if ($qSold) {
                             <?php if (empty($salesOrders)): ?>
                                 <tr>
                                     <td colspan="7" style="text-align: center; color: var(--mu); padding: 40px 20px;">
-                                        <div style="font-size: 28px; margin-bottom: 8px;">📊</div>
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--accent);">[RINGKASAN]</div>
                                         <div style="font-weight: 700; color: var(--tx); font-size: 14px; margin-bottom: 4px;">Tidak Ada Transaksi Penjualan Terverifikasi</div>
                                         <div style="font-size: 13px; color: var(--mu); margin-bottom: 14px;">
                                             Tabel laporan penjualan ini khusus mencatat transaksi yang sudah dibayar/lunas. Pesanan yang belum bayar atau sedang diproses kurir dapat dipantau di halaman pesanan.
@@ -468,7 +468,7 @@ if ($qSold) {
                                         </td>
                                         <td>
                                             <span class="badge-status status-success" style="font-size: 9.5px; padding: 2px 6px; font-weight: 800; white-space: nowrap;">
-                                                ✓ LUNAS
+                                                LUNAS
                                             </span>
                                         </td>
                                         <td><strong style="color: var(--ac); font-size: 13px; font-family: var(--display-font);"><?= format_rupiah($so['total']) ?></strong></td>

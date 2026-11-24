@@ -653,7 +653,7 @@ $isLoggedIn = true;
     <!-- STEPS PROGRESS BAR -->
     <div class="steps-nav">
         <a href="checkout.php" class="step-pill done" style="text-decoration: none;">
-            <span>✓</span>
+            <span class="check-icon-clean">[OK]</span>
             <span>1 ALAMAT</span>
         </a>
         <span class="step-divider">——</span>
@@ -749,7 +749,7 @@ $isLoggedIn = true;
                                     <?= formatRupiah($total) ?>
                                 </div>
                                 <div style="font-size: 12px; color: #CCCCCC; margin-top: 4px; line-height: 1.4;">
-                                    ✓ Saat discan dengan BCA, Mandiri, GoPay, DANA, dll., nominal <strong><?= formatRupiah($total) ?></strong> langsung otomatis terisi tanpa perlu ketik manual.
+                                    Saat discan dengan BCA, Mandiri, GoPay, DANA, dll., nominal <strong><?= formatRupiah($total) ?></strong> langsung otomatis terisi tanpa perlu ketik manual.
                                 </div>
                             </div>
                         </div>
@@ -862,7 +862,7 @@ $isLoggedIn = true;
                 <!-- RINCIAN TUJUAN PENGIRIMAN -->
                 <div class="summary-destination-box">
                     <div class="summary-dest-label">
-                        <span>📍 Alamat Pengiriman</span>
+                        <span>Alamat Pengiriman</span>
                         <a href="checkout.php" style="color: var(--ac); font-size: 10px; text-decoration: underline;">UBAH</a>
                     </div>
                     <div class="summary-dest-recipient">
@@ -874,7 +874,7 @@ $isLoggedIn = true;
                         <?= htmlspecialchars($checkoutAddress["city"] ?? "") ?> <?= htmlspecialchars($checkoutAddress["postal_code"] ?? "") ?>
                     </div>
                     <div class="summary-dest-courier">
-                        🚚 Ekspedisi Reguler Flat (Rp 15.000)
+                        Ekspedisi Reguler Flat (Rp 15.000)
                     </div>
                 </div>
 
@@ -905,7 +905,7 @@ $isLoggedIn = true;
                     <?php if ($appliedDiscount): ?>
                         <div class="discount-applied-card">
                             <div>
-                                <span class="discount-code-tag">✓ <?= htmlspecialchars($appliedDiscount["code"]) ?></span>
+                                <span class="discount-code-tag">[Kupon Aktif] <?= htmlspecialchars($appliedDiscount["code"]) ?></span>
                                 <span class="discount-desc-tag"><?= htmlspecialchars($appliedDiscount["description"]) ?></span>
                             </div>
                             <form method="POST" action="pembayaran.php" style="margin: 0;">
@@ -922,9 +922,9 @@ $isLoggedIn = true;
                     <?php endif; ?>
 
                     <?php if (!empty($discountError)): ?>
-                        <div class="discount-alert error">⚠️ <?= htmlspecialchars($discountError) ?></div>
+                        <div class="discount-alert error">[!] <?= htmlspecialchars($discountError) ?></div>
                     <?php elseif (!empty($discountSuccess)): ?>
-                        <div class="discount-alert success">✓ <?= htmlspecialchars($discountSuccess) ?></div>
+                        <div class="discount-alert success">[OK] <?= htmlspecialchars($discountSuccess) ?></div>
                     <?php endif; ?>
                 </div>
             </div>

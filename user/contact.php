@@ -178,7 +178,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             <p class="contact-subtitle">Punya pertanyaan seputar kurasi barang, ukuran, pengiriman, atau konfirmasi pesanan? Tim kami siap membantu kamu.</p>
 
             <div class="info-row">
-                <div class="info-icon">💬</div>
+                <div class="info-icon">[WA]</div>
                 <div>
                     <div class="info-label">WhatsApp Customer Service</div>
                     <div class="info-value">
@@ -188,7 +188,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             </div>
 
             <div class="info-row">
-                <div class="info-icon">📸</div>
+                <div class="info-icon">[IG]</div>
                 <div>
                     <div class="info-label">Instagram Resmi</div>
                     <div class="info-value">
@@ -198,7 +198,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             </div>
 
             <div class="info-row">
-                <div class="info-icon">📍</div>
+                <div class="info-icon">[HQ]</div>
                 <div>
                     <div class="info-label">Studio & Drop Point</div>
                     <div class="info-value">Jakarta Selatan, DKI Jakarta, Indonesia</div>

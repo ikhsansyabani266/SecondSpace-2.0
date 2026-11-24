@@ -521,19 +521,19 @@ $isLoggedIn = isset($_SESSION["user_id"]);
     <!-- STREETWEAR TICKER MARQUEE (BERJALAN MULUS TANPA TERTUTUP NAVBAR) -->
     <div class="streetwear-ticker">
         <div class="ticker-inner">
-            <span class="ticker-item"><strong>SECONDSPΛCE® PRELOVED</strong> <span class="dot">✦</span></span>
-            <span class="ticker-item">CURATED SECOND HAND CLOTHING <span class="dot">✦</span></span>
-            <span class="ticker-item"><strong>STREETWEAR CONCEPT VIBES</strong> <span class="dot">✦</span></span>
-            <span class="ticker-item">LIMITED 1-OF-1 PIECES <span class="dot">✦</span></span>
-            <span class="ticker-item">SUSTAINABLE CIRCULAR LIVING <span class="dot">✦</span></span>
-            <span class="ticker-item"><strong>PENGIRIMAN CEPAT &amp; AMAN</strong> <span class="dot">✦</span></span>
+            <span class="ticker-item"><strong>SECONDSPΛCE® PRELOVED</strong> <span class="dot">•</span></span>
+            <span class="ticker-item">CURATED SECOND HAND CLOTHING <span class="dot">•</span></span>
+            <span class="ticker-item"><strong>STREETWEAR CONCEPT VIBES</strong> <span class="dot">•</span></span>
+            <span class="ticker-item">LIMITED 1-OF-1 PIECES <span class="dot">•</span></span>
+            <span class="ticker-item">SUSTAINABLE CIRCULAR LIVING <span class="dot">•</span></span>
+            <span class="ticker-item"><strong>PENGIRIMAN CEPAT &amp; AMAN</strong> <span class="dot">•</span></span>
             <!-- Duplikat untuk seamless loop -->
-            <span class="ticker-item"><strong>SECONDSPΛCE® PRELOVED</strong> <span class="dot">✦</span></span>
-            <span class="ticker-item">CURATED SECOND HAND CLOTHING <span class="dot">✦</span></span>
-            <span class="ticker-item"><strong>STREETWEAR CONCEPT VIBES</strong> <span class="dot">✦</span></span>
-            <span class="ticker-item">LIMITED 1-OF-1 PIECES <span class="dot">✦</span></span>
-            <span class="ticker-item">SUSTAINABLE CIRCULAR LIVING <span class="dot">✦</span></span>
-            <span class="ticker-item"><strong>PENGIRIMAN CEPAT &amp; AMAN</strong> <span class="dot">✦</span></span>
+            <span class="ticker-item"><strong>SECONDSPΛCE® PRELOVED</strong> <span class="dot">•</span></span>
+            <span class="ticker-item">CURATED SECOND HAND CLOTHING <span class="dot">•</span></span>
+            <span class="ticker-item"><strong>STREETWEAR CONCEPT VIBES</strong> <span class="dot">•</span></span>
+            <span class="ticker-item">LIMITED 1-OF-1 PIECES <span class="dot">•</span></span>
+            <span class="ticker-item">SUSTAINABLE CIRCULAR LIVING <span class="dot">•</span></span>
+            <span class="ticker-item"><strong>PENGIRIMAN CEPAT &amp; AMAN</strong> <span class="dot">•</span></span>
         </div>
     </div>
 
@@ -651,7 +651,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
         <!-- Kontak & Info (WA, IG, Lokasi) -->
         <div class="simple-footer-contact">
             <div class="simple-contact-item">
-                <span class="simple-contact-icon">💬</span>
+                <span class="simple-contact-icon">[WA]</span>
                 <div>
                     <div class="simple-contact-label">WHATSAPP</div>
                     <a href="https://wa.me/<?= normalizePhone($whatsappNumber) ?>?s=p" target="_blank" rel="noopener" class="simple-contact-link">
@@ -661,7 +661,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             </div>
 
             <div class="simple-contact-item">
-                <span class="simple-contact-icon">📸</span>
+                <span class="simple-contact-icon">[IG]</span>
                 <div>
                     <div class="simple-contact-label">INSTAGRAM</div>
                     <a href="https://instagram.com/secondspace" target="_blank" rel="noopener" class="simple-contact-link">
@@ -671,7 +671,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
             </div>
 
             <div class="simple-contact-item">
-                <span class="simple-contact-icon">📍</span>
+                <span class="simple-contact-icon">[HQ]</span>
                 <div>
                     <div class="simple-contact-label">LOKASI</div>
                     <span class="simple-contact-text">Jakarta, Indonesia</span>

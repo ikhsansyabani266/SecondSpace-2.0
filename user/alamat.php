@@ -258,7 +258,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
                                 <span class="address-badge">UTAMA</span>
                             <?php endif; ?>
                         </div>
-                        <div class="address-phone">📞 <?= htmlspecialchars($addr["phone"]) ?></div>
+                        <div class="address-phone">Telp: <?= htmlspecialchars($addr["phone"]) ?></div>
                         <div class="address-detail">
                             <?= nl2br(htmlspecialchars($addr["address"])) ?><br>
                             <?= htmlspecialchars($addr["city"]) ?><?= !empty($addr["province"]) ? ', ' . htmlspecialchars($addr["province"]) : '' ?> <?= htmlspecialchars($addr["postal_code"]) ?>
@@ -267,7 +267,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
                 <?php $i++; endwhile; ?>
             <?php else: ?>
                 <div class="empty-address">
-                    <div style="font-size: 36px; margin-bottom: 12px;">📍</div>
+                    <div style="font-size: 14px; font-weight: bold; margin-bottom: 12px; color: var(--accent);">[ALAMAT]</div>
                     <h3 style="color: var(--tx); font-family: var(--display-font); font-size: 20px; margin-bottom: 6px;">Belum Ada Alamat</h3>
                     <p>Silakan tambahkan alamat pengiriman kamu melalui formulir di sebelah kiri.</p>
                 </div>

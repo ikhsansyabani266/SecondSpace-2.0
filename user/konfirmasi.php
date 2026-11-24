@@ -604,12 +604,12 @@ $isLoggedIn = true;
     <!-- STEPS PROGRESS BAR -->
     <div class="steps-nav">
         <div class="step-pill done">
-            <span>✓</span>
+            <span class="check-icon-clean">[OK]</span>
             <span>1 ALAMAT</span>
         </div>
         <span class="step-divider">——</span>
         <div class="step-pill done">
-            <span>✓</span>
+            <span class="check-icon-clean">[OK]</span>
             <span>2 PEMBAYARAN</span>
         </div>
         <span class="step-divider">——</span>
@@ -719,7 +719,7 @@ $isLoggedIn = true;
 
                 <!-- BIG BUTTON KONFIRMASI VIA WHATSAPP -->
                 <a href="<?= $waConfirmUrl ?>" target="_blank" rel="noopener" class="btn-wa-confirm">
-                    💬 KONFIRMASI VIA WHATSAPP
+                    KONFIRMASI VIA WHATSAPP
                 </a>
 
                 <!-- PREVIEW BOX PESAN WHATSAPP -->

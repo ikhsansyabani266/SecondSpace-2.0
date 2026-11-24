@@ -285,11 +285,11 @@ $categoriesList = ambil_semua_kategori($conn);
 
         <div class="admin-content" style="max-width: 900px;">
             <?php if ($flashSuccess = flash_get('success')): ?>
-                <div class="flash-msg success"><span>✓</span> <?= htmlspecialchars($flashSuccess) ?></div>
+                <div class="flash-msg success"><span class="status-badge-icon">[OK]</span> <?= htmlspecialchars($flashSuccess) ?></div>
             <?php endif; ?>
 
             <?php if (!empty($errorMsg)): ?>
-                <div class="flash-msg error"><span>⚠️</span> <?= htmlspecialchars($errorMsg) ?></div>
+                <div class="flash-msg error"><span class="status-badge-icon">[!]</span> <?= htmlspecialchars($errorMsg) ?></div>
             <?php endif; ?>
 
             <div class="table-card" style="padding: 32px;">
@@ -368,7 +368,7 @@ $categoriesList = ambil_semua_kategori($conn);
                                     <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
                                         <img src="<?= htmlspecialchars($imgDepanUrl ?: '../images/' . $product['image']) ?>" alt="Foto Depan" width="80" height="80" style="object-fit: cover; border-radius: 4px; border: 1px solid var(--ln);">
                                         <button type="submit" name="delete_photo" value="depan" formnovalidate class="btn btn-secondary btn-sm" style="color: #ff6b6b; border-color: #552222; font-size: 11px; padding: 6px 10px; cursor: pointer;">
-                                            🗑️ Hapus Foto
+                                            Hapus Foto
                                         </button>
                                     </div>
                                 <?php endif; ?>
@@ -382,7 +382,7 @@ $categoriesList = ambil_semua_kategori($conn);
                                     <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
                                         <img src="<?= htmlspecialchars($imgBackUrl ?: '../images/' . $existingImgBack) ?>" alt="Foto Belakang" width="80" height="80" style="object-fit: cover; border-radius: 4px; border: 1px solid var(--ln);">
                                         <button type="submit" name="delete_photo" value="belakang" formnovalidate class="btn btn-secondary btn-sm" style="color: #ff6b6b; border-color: #552222; font-size: 11px; padding: 6px 10px; cursor: pointer;">
-                                            🗑️ Hapus Foto
+                                            Hapus Foto
                                         </button>
                                     </div>
                                 <?php endif; ?>
@@ -396,7 +396,7 @@ $categoriesList = ambil_semua_kategori($conn);
                                     <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
                                         <img src="<?= htmlspecialchars($imgDetailUrl ?: '../images/' . $existingImgDetail) ?>" alt="Foto Detail" width="80" height="80" style="object-fit: cover; border-radius: 4px; border: 1px solid var(--ln);">
                                         <button type="submit" name="delete_photo" value="detail" formnovalidate class="btn btn-secondary btn-sm" style="color: #ff6b6b; border-color: #552222; font-size: 11px; padding: 6px 10px; cursor: pointer;">
-                                            🗑️ Hapus Foto
+                                            Hapus Foto
                                         </button>
                                     </div>
                                 <?php endif; ?>
