@@ -45,3 +45,7 @@ Thumbs.db
 # Bukti pembayaran hasil uji coba (tetap pertahankan folder produk)
 /uploads/bukti/
 /uploads/bukti/*
+
+# Dokumen instruksi internal pengerjaan
+INSTRUKSI_FINAL.md
+
