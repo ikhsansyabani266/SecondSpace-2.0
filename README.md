@@ -245,13 +245,8 @@ Gunakan kredensial pengujian berikut untuk mengevaluasi sistem:
 
 Proyek ini dikembangkan oleh:
 
-| Nama Pengembang | NIM | Tanggung Jawab Utama |
-| :--- | :--- | :--- |
 | **[Nama Anggota 1]** | [NIM 1] | Project Lead, Backend User, Checkout & Integrasi Alur Transaksi |
 | **[Nama Anggota 2]** | [NIM 2] | Perancangan Database MySQL, Optimasi Skema, Audit Konsistensi |
-| **[Nama Anggota 3]** | [NIM 3] | Panel Admin, Dashboard Metrik, State Machine Pesanan & Mutasi Stok |
-| **[Nama Anggota 4]** | [NIM 4] | Desain UI/UX Streetwear Brutalist, Responsive CSS, Arsitektur Zero-JS |
-| **[Nama Anggota 5]** | [NIM 5] | Pengujian Keamanan (CSRF & Sanitasi), Dokumentasi Teknis & Release |
 
 ---
 
