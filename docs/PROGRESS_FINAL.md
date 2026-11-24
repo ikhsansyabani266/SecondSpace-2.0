@@ -7,7 +7,8 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 ## Ringkasan Status Proyek
 
 - Total Fase: 9 Fase
-- Fase Saat Ini: FASE 1 (Selesai - Menunggu Persetujuan Pemilik Proyek)
+- Fase Terakhir Selesai: FASE 2 (Titik Pemulihan)
+- Fase Selanjutnya: FASE 3 (Pembersihan File dan Kode - Menunggu Persetujuan)
 - Aturan Kerja: Kerjakan SATU fase per giliran, lalu BERHENTI dan tunggu persetujuan pemilik sebelum melanjutkan ke fase berikutnya.
 - Prinsip Utama: Tanpa JavaScript (Zero JS), tanpa emoji di seluruh sistem, pertahankan tampilan dan workflow eksisting 100%, perubahan skema database hanya dilakukan di Fase 5 setelah konfirmasi butir per butir.
 
@@ -16,10 +17,10 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 ## Log Pelaksanaan Fase
 
 ### FASE 1: ANALISIS MENYELURUH (READ-ONLY)
-- Status: SELESAI (Menunggu Persetujuan Pemilik Proyek)
+- Status: SELESAI (Disetujui Pemilik Proyek)
 - Tanggal Eksekusi: 24 November 2026
 - Lingkup Kerja:
-  1. Audit peta project dan inventarisasi 475 file (total ukuran ~330 MB).
+  1. Audit peta project dan inventarisasi berkas.
   2. Audit kepatuhan stack: Terverifikasi zero JavaScript pada halaman produksi /user dan /admin.
   3. Identifikasi file/folder duplikat: `admin_lama/`, `produk_preloved_original/`, file duplikat di root vs `/user/`.
   4. Audit direktori `/uploads/` dan konsistensi gambar produk di database.
@@ -32,32 +33,42 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 
 ---
 
-### FASE 2: PEMBERSIHAN FILE, FOLDER, DAN UPLOADS
-- Status: PENDING (Menunggu Persetujuan Hasil Fase 1)
-- Rencana Kerja:
-  1. Pencadangan full codebase dan database sebelum eksekusi.
-  2. Penghapusan folder duplikat: `admin_lama/` dan `produk_preloved_original/`.
-  3. Penghapusan file duplikat di root project (`index.php`, `login.php`, `produk.php`, dll) yang merupakan salinan dari `/user/`.
-  4. Pembersihan script Python / alat sementara di `database/tools/`.
-  5. Pembersihan file yatim pada direktori `uploads/` setelah konfirmasi pemilik.
+### FASE 2: TITIK PEMULIHAN
+- Status: SELESAI
+- Tanggal Eksekusi: 24 November 2026
+- Lingkup Kerja & Bukti:
+  1. Backup Database:
+     - File backup penuh berhasil dibuat di `database/backup/backup_secondspace_preloved_2026-11-24_070141.sql` (55.27 KB) dan disalin ke `database/backup/backup_fase2_sebelum_final_cleanup.sql`.
+  2. Git Baseline Commit:
+     - Repository Git diinisialisasi dan seluruh codebase awal dicommit dengan pesan: `titik pemulihan sebelum final cleanup` (Commit ID: `9713bfa`).
+  3. Git Tag:
+     - Dibuat tag penanda pemulihan: `sebelum-final-cleanup`.
+  4. Git Branch:
+     - Branch kerja baru dibuat dan aktif: `final-cleanup`.
 
 ---
 
-### FASE 3: PEMBERSIHAN KODE DAN EKSTRAKSI TEMPLATE
-- Status: PENDING
+### FASE 3: PEMBERSIHAN FILE DAN KODE (HANYA YANG DISETUJUI)
+- Status: PENDING (Menunggu Persetujuan Pemilik Proyek)
 - Rencana Kerja:
-  1. Ekstraksi header, footer, navigasi ke partials bersama (`shared/templates/`).
-  2. Konsolidasi fungsi duplikat dan helper session.
-  3. Eliminasi kode mati (dead code).
+  1. Penghapusan lewat git rm untuk folder duplikat yang disetujui: `admin_lama/` dan `produk_preloved_original/`.
+  2. Penghapusan file duplikat di root project (`index.php`, `login.php`, `produk.php`, dll) yang merupakan salinan dari `/user/`.
+  3. Penghapusan script Python / alat bantu sementara di `database/tools/`.
+  4. Penghapusan file yatim di `/uploads/produk/`.
+  5. Pembersihan kode mati, fungsi yang tidak terpakai, dan CSS yang tidak terpakai tanpa mengubah tampilan.
+  6. Verifikasi linting `php -l` pada seluruh berkas PHP.
+  7. Commit di akhir fase.
 
 ---
 
-### FASE 4: PEMBERSIHAN EMOJI
+### FASE 4: PENGHAPUSAN EMOJI DAN PEMBERSIHAN DATA DEMO
 - Status: PENDING
 - Rencana Kerja:
   1. Penggantian 171 kemunculan emoji di kode PHP/HTML dengan teks deskriptif, SVG inline monokrom, atau styling CSS murni.
   2. Pembersihan simbol emoji pada tombol aksi, pesan flash, badge status, dan placeholder.
-  3. Verifikasi ketiadaan emoji pada seluruh berkas kode dan basis data.
+  3. Pembersihan data demo yang disetujui di database (produk test ID 36, akun dummy, pesanan uji coba) melalui script dengan mode dry-run terlebih dahulu.
+  4. Pembuatan file SQL dump bersih `database/toko_preloved_final.sql`.
+  5. Commit di akhir fase.
 
 ---
 
@@ -77,6 +88,7 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 - Rencana Kerja:
   1. Penyelarasan label status pesanan dan pembayaran antara dashboard admin dan panel user.
   2. Sinkronisasi alur pembaruan resi pengiriman dan status pengiriman pesanan.
+  3. Uji coba alur menyeluruh login, pesanan, dan verifikasi admin.
 
 ---
 
