@@ -250,7 +250,7 @@ $salesStmt->close();
 $qSold = $conn->query("
     SELECT id, sku, name, category, price, image
     FROM products
-    WHERE stock <= 0 AND is_demo = 0
+    WHERE stock <= 0
     ORDER BY id DESC
     LIMIT 5
 ");

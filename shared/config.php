@@ -120,4 +120,12 @@ define('DAFTAR_METODE_PEMBAYARAN', [
     'E-Wallet',
     'COD'
 ]);
+
+// [BAGIAN: Daftar Kondisi Produk Preloved Baku (Opsi A)]
+define('DAFTAR_KONDISI_PRODUK', [
+    'Seperti Baru',
+    'Bagus',
+    'Ada Minus',
+]);
+// [/BAGIAN: Daftar Kondisi Produk Preloved Baku (Opsi A)]
 // [/BAGIAN: Pengaturan Bisnis Preloved]

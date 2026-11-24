@@ -70,15 +70,15 @@ if ($order_id > 0) {
                a.postal_code
         FROM orders o
         LEFT JOIN addresses a ON o.address_id = a.id
-        WHERE (o.order_code = ? OR o.order_number = ?) " . ($isAdmin ? "" : "AND o.user_id = ?") . "
+        WHERE o.order_code = ? " . ($isAdmin ? "" : "AND o.user_id = ?") . "
         LIMIT 1
     ";
     $stmt = $conn->prepare($query);
     if ($stmt) {
         if ($isAdmin) {
-            $stmt->bind_param("ss", $order_code, $order_code);
+            $stmt->bind_param("s", $order_code);
         } else {
-            $stmt->bind_param("ssi", $order_code, $order_code, $userId);
+            $stmt->bind_param("si", $order_code, $userId);
         }
         $stmt->execute();
         $res = $stmt->get_result();
@@ -127,8 +127,8 @@ function getDetailStatusBadge(string $status): array {
 
 $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
 $isLoggedIn = isset($_SESSION["user_id"]);
-$orderCodeDisplay = $order ? ($order["order_code"] ?: ($order["order_number"] ?: "SS-" . $order["id"])) : "";
-$currentStatus = $order ? ($order["order_status"] ?: ($order["status"] ?: "Menunggu Pembayaran")) : "";
+$orderCodeDisplay = $order ? ($order["order_code"] ?: "SS-" . $order["id"]) : "";
+$currentStatus = $order ? ($order["order_status"] ?: "Menunggu Pembayaran") : "";
 $badge = getDetailStatusBadge($currentStatus);
 
 // Hitung diskon promo jika ada

@@ -770,7 +770,7 @@ $isLoggedIn = isset($_SESSION["user_id"]);
                 <div class="filter-section">
                     <span class="filter-title">KONDISI</span>
                     <?php
-                    $allConditions = ["Sangat Baik", "Baik", "Cukup"];
+                    $allConditions = defined('DAFTAR_KONDISI_PRODUK') ? DAFTAR_KONDISI_PRODUK : ["Seperti Baru", "Bagus", "Ada Minus"];
                     foreach ($allConditions as $cndOption):
                         $checked = in_array($cndOption, $selectedConditions, true);
                     ?>

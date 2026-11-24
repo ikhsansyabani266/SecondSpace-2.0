@@ -60,7 +60,7 @@ function filter_url($overrides = []) {
 }
 
 // [QUERY: Hitung Total Produk Sesuai Filter]
-$where = ["is_demo = 0"];
+$where = ["1=1"];
 $types = "";
 $params = [];
 
@@ -128,7 +128,7 @@ $stmt->close();
 $catQuery = $conn->query("
     SELECT category, COUNT(*) as total_prod
     FROM products
-    WHERE is_demo = 0 AND category IS NOT NULL AND category != ''
+    WHERE category IS NOT NULL AND category != ''
     GROUP BY category
     ORDER BY category ASC
 ");

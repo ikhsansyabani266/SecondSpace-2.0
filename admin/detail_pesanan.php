@@ -141,12 +141,12 @@ while ($row = $itemsResult->fetch_assoc()) {
 }
 $stmtItems->close();
 
-$orderCode = !empty($order['order_code']) ? $order['order_code'] : ($order['order_number'] ?: ('ORD-' . $order['id']));
-$orderStatus = $order['order_status'] ?: ($order['status'] ?: 'Menunggu Pembayaran');
+$orderCode = !empty($order['order_code']) ? $order['order_code'] : ('ORD-' . $order['id']);
+$orderStatus = $order['order_status'] ?: 'Menunggu Pembayaran';
 $payStatus = $order['payment_status'] ?: 'Menunggu Pembayaran';
 $subtotal = (float)$order['subtotal'];
 $shippingCost = (float)$order['shipping'];
-$grandTotal = (float)($order['total'] ?: $order['total_price'] ?: 0);
+$grandTotal = (float)($order['total'] ?: 0);
 
 // Status Badge Map
 $statusOrderBadges = [

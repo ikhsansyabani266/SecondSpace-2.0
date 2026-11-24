@@ -24,7 +24,7 @@ $countAvailSql = "
     FROM products p
     LEFT JOIN order_items oi ON p.id = oi.product_id
     LEFT JOIN orders o ON oi.order_id = o.id AND o.order_status != 'Dibatalkan'
-    WHERE p.is_demo = 0 AND (p.stock > 0 AND o.id IS NULL)
+    WHERE (p.stock > 0 AND o.id IS NULL)
 ";
 $countAvailable = (int)($conn->query($countAvailSql)->fetch_assoc()['c'] ?? 0);
 
@@ -33,13 +33,13 @@ $countSoldSql = "
     FROM products p
     LEFT JOIN order_items oi ON p.id = oi.product_id
     LEFT JOIN orders o ON oi.order_id = o.id AND o.order_status != 'Dibatalkan'
-    WHERE p.is_demo = 0 AND (p.stock <= 0 OR o.id IS NOT NULL)
+    WHERE (p.stock <= 0 OR o.id IS NOT NULL)
 ";
 $countSold = (int)($conn->query($countSoldSql)->fetch_assoc()['c'] ?? 0);
 $countTotal = $countAvailable + $countSold;
 
 // [QUERY DATA RIWAYAT TRANSAKSI DENGAN FILTER]
-$whereConditions = ["p.is_demo = 0"];
+$whereConditions = ["1=1"];
 $params = [];
 $types = "";
 

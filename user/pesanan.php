@@ -140,7 +140,7 @@ function getOrderStatusBadge(string $status): array {
 }
 
 // Generate URL WhatsApp Tracking Umum
-$lastOrderCode = !empty($orders) ? ($orders[0]["order_code"] ?: $orders[0]["order_number"] ?: "-") : "-";
+$lastOrderCode = !empty($orders) ? ($orders[0]["order_code"] ?: "-") : "-";
 $waTrackMsg = "Halo SecondSpace, saya ingin cek status dan nomor resi pengiriman pesanan saya. Akun: " . $name . " (@" . $username . "). Kode pesanan terakhir: " . $lastOrderCode . ".";
 $waTrackUrl = waLink($whatsappNumber, $waTrackMsg);
 
@@ -728,8 +728,8 @@ $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
             <!-- DAFTAR PESANAN -->
             <?php foreach ($orders as $order): ?>
                 <?php
-                $orderCode = $order["order_code"] ?: ($order["order_number"] ?: "SS-" . $order["id"]);
-                $currentStatus = $order["order_status"] ?: ($order["status"] ?: "Menunggu Pembayaran");
+                $orderCode = $order["order_code"] ?: ("SS-" . $order["id"]);
+                $currentStatus = $order["order_status"] ?: "Menunggu Pembayaran";
                 $statusBadge = getOrderStatusBadge($currentStatus);
                 $hasTracking = !empty($order["tracking_number"]);
                 $courierName = $order["shipping_courier"] ?: ($order["courier"] ?? "Ekspedisi Reguler");

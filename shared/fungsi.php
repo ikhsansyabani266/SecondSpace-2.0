@@ -470,7 +470,7 @@ function ubah_status_pembayaran($conn, $orderId, $statusBaru, $catatan = '', $ad
  * @return int
  */
 function kpi_total_produk($conn): int {
-    $res = $conn->query("SELECT COUNT(*) AS total FROM products WHERE is_demo = 0");
+    $res = $conn->query("SELECT COUNT(*) AS total FROM products");
     return ($res && $r = $res->fetch_assoc()) ? (int)$r['total'] : 0;
 }
 
@@ -527,7 +527,7 @@ function kpi_pesan_masuk($conn): int {
  * @return array
  */
 function ambil_produk_katalog($conn, $category = null, $sort = 'newest', $search = '', $limit = 24, $offset = 0): array {
-    $where = ["is_demo = 0"];
+    $where = ["1=1"];
     $types = "";
     $params = [];
 

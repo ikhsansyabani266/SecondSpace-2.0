@@ -34,17 +34,16 @@ $params = [];
 $types = "";
 
 if ($search !== '') {
-    $whereClauses[] = "(o.order_code LIKE ? OR o.order_number LIKE ? OR u.name LIKE ? OR a.recipient_name LIKE ? OR a.phone LIKE ?)";
+    $whereClauses[] = "(o.order_code LIKE ? OR u.name LIKE ? OR a.recipient_name LIKE ? OR a.phone LIKE ?)";
     $likeSearch = "%{$search}%";
-    $params = array_merge($params, [$likeSearch, $likeSearch, $likeSearch, $likeSearch, $likeSearch]);
-    $types .= "sssss";
+    $params = array_merge($params, [$likeSearch, $likeSearch, $likeSearch, $likeSearch]);
+    $types .= "ssss";
 }
 
 if ($filterOrderStatus !== '') {
-    $whereClauses[] = "(o.order_status = ? OR o.status = ?)";
+    $whereClauses[] = "o.order_status = ?";
     $params[] = $filterOrderStatus;
-    $params[] = $filterOrderStatus;
-    $types .= "ss";
+    $types .= "s";
 }
 
 if ($filterPaymentStatus !== '') {
@@ -277,10 +276,10 @@ $currentNav = "pesanan";
                             <tbody>
                                 <?php foreach ($orders as $o): ?>
                                     <?php
-                                        $orderCode = !empty($o['order_code']) ? $o['order_code'] : ($o['order_number'] ?: ('ORD-' . $o['id']));
+                                        $orderCode = !empty($o['order_code']) ? $o['order_code'] : ('ORD-' . $o['id']);
                                         $buyerName = !empty($o['recipient_name']) ? $o['recipient_name'] : ($o['user_name'] ?: 'Pelanggan');
-                                        $orderTotal = (float)($o['total'] ?: $o['total_price'] ?: 0);
-                                        $orderStatus = $o['order_status'] ?: ($o['status'] ?: 'Menunggu Pembayaran');
+                                        $orderTotal = (float)($o['total'] ?: 0);
+                                        $orderStatus = $o['order_status'] ?: 'Menunggu Pembayaran';
                                         $payStatus = $o['payment_status'] ?: 'Menunggu Pembayaran';
                                         $badgeOrderClass = $statusOrderBadges[$orderStatus] ?? 'status-muted';
                                         $badgePayClass = $statusPaymentBadges[$payStatus] ?? 'status-muted';

@@ -98,13 +98,30 @@ Dokumen ini mencatat status pengerjaan refactoring dan optimasi sistem SecondSpa
 ---
 
 ### FASE 5: PENYEDERHANAAN STRUKTUR DATABASE
-- Status: PENDING
-- Aturan Khusus: Dilakukan di database salinan terlebih dahulu, kode disesuaikan sebelum migrasi diterapkan, setiap perubahan kolom disetujui satu per satu oleh pemilik proyek.
-- Rencana Kerja:
-  1. Eliminasi duplikasi kolom `order_number` dan `total_price` pada tabel `orders`.
-  2. Eliminasi duplikasi kolom `condition_text` pada tabel `products`.
-  3. Standardisasi kolom status menjadi ENUM baku.
-  4. Penambahan foreign key constraints formal (`orders` -> `users`, `order_items` -> `orders`, dll).
+- Status: TAHAP C SELESAI (Menunggu Persetujuan Masuk ke Tahap D Migration)
+- Tanggal Eksekusi: 24 November 2026
+- Keputusan Pemilik Proyek (Tahap B):
+  1. Item 1 sampai 8 pada Tabel Keputusan: Disetujui 100% tanpa pengecualian.
+  2. Himpunan Label Kondisi: Opsi A dipilih ("Seperti Baru", "Bagus", "Ada Minus") sebagai satu-satunya himpunan baku.
+- Pelaksanaan Tahap C (Ubah Kode Lebih Dulu):
+  1. Backup Basis Data:
+     - Berkas cadangan dibuat di `database/backup/backup_fase5_tahap_c_sebelum_ubah_kode.sql` (49.61 KB).
+  2. Branch Terpisah:
+     - Branch `fase5-code-prep` dibuat dan aktif.
+  3. Konfigurasi Baku:
+     - Didefinisikan konstanta `DAFTAR_KONDISI_PRODUK = ['Seperti Baru', 'Bagus', 'Ada Minus']` di `shared/config.php`.
+  4. Penyesuaian Kode PHP:
+     - `user/produk.php`: Filter kondisi disinkronkan menggunakan `DAFTAR_KONDISI_PRODUK` (Opsi A). Filter kini menemukan produk dengan akurat (Seperti Baru: 5, Bagus: 18, Ada Minus: 1).
+     - `admin/detail_pesanan.php`: Berhenti membaca kolom `order_number`, `total_price`, dan `status`; murni memakai `order_code`, `total`, dan `order_status`.
+     - `admin/pesanan.php`: Query filter dan render baris berhenti membaca `order_number`, `total_price`, dan `status`.
+     - `user/detail_pesanan.php` & `user/pesanan.php`: Tampilan dan query pesanan murni menggunakan `order_code` dan `order_status`.
+     - `admin/index.php`, `admin/produk.php`, `admin/riwayat.php`, `shared/fungsi.php`: Dihapus klausul filter sementara `is_demo = 0`.
+  5. Pengujian & Verifikasi:
+     - Seluruh alur (filter katalog, detail produk, KPI dashboard, pesanan aktif, mutasi stok) telah diuji dan berfungsi normal 100%.
+     - Kompilasi `php -l` pada seluruh berkas PHP: 0 kesalahan sintaks.
+  6. Catatan Kritis:
+     - Belum ada struktur database yang diubah atau dimigrasikan pada tahap ini (sesuai instruksi ketat).
+     - Tahap D (Migration) menunggu persetujuan laporan Tahap C.
 
 ---
 
